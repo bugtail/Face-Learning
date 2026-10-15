@@ -38,10 +38,13 @@ The website contains a Python-trained PCA + Gaussian Naive Bayes teaching baseli
 
 ```powershell
 git clone https://github.com/heetah/Face-Learning.git
-cd face-learning
-git switch feature/<your-role>
+cd Face-Learning
+git switch --track origin/feature/a-data-loader
 ```
 
-For each work session, update `main`, then bring its changes into your branch. Before sharing work, inspect `git status --short` and `git diff --check`, stage only named files, commit, and push your own branch. Do not force-push shared work.
+The last command is an example for member A. Replace it with your assigned branch from the table above; `--track` creates a local branch that follows the existing GitHub branch. The A–F detail pages on the website give each role its exact command.
+
+For later sessions, switch to your assigned branch and run `git pull --ff-only` before editing. Before sharing work, inspect `git status --short` and `git diff --check`, stage only named files, commit, then run `git push` to update its upstream branch. Do not force-push shared work.
 
 The website's A–F pages include step-by-step MATLAB and Git commands: <https://face-learning-lab-heetah-20261015.divine-siren-9327.chatgpt.site/#team-workflow>.
+
