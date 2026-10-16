@@ -31,11 +31,11 @@
 
 ## 配對合作
 
-D/E 共用每折的 PCA/LDA features、資料列、label order、positive class、score columns 和衡量方式。比較 Gaussian Naive Bayes 與固定 MLP baseline，不只比較 training accuracy。一起給 F 四條 pipeline 的 OOF 預測和設定摘要。
+D/E 共用每折的 PCA/LDA features、資料列、label order、positive class、score columns 和衡量方式。比較 Gaussian Naive Bayes 與固定 MLP baseline，不只比較 training accuracy。一起給 F 四條 pipeline 的私有 oof_predictions.csv 逐筆列和 classifier_summary.csv。
 
 ## 本角色交付
 
-matlab/fitMLP.m；matlab/predictMLP.m；synthetic output/score tests；private classifier_summary.csv 與兩條 pipeline 的 OOF predictions；MLP 網路示意與報告結果。
+matlab/fitMLP.m；matlab/predictMLP.m；synthetic output/score tests；private classifier_summary.csv、私有 oof_predictions.csv 的兩條 pipeline rows；MLP 網路示意與簡報、書面報告結果。
 
 ## Git 操作
 

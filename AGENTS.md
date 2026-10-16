@@ -34,16 +34,16 @@ fitcnet 是 MATLAB Statistics and Machine Learning Toolbox 的 fully connected n
 5. predict validation，依 model.ClassNames 對照兩類 scores。不要用 validation 重訓、標準化或調整 hidden units。
 6. 記錄 MATLAB release、toolboxes、Mdl.TrainingHistory、class order、設定、fit/predict 秒數和 trainable parameters。
 7. 若輸入維度為 d、hidden h=10、輸出 K=2，trainable weights+biases 為 h(d+1)+K(h+1)=10d+32。PCA 與 LDA 各算一次；standardization stats 不算神經網路參數。
-8. 私下交 OOF predictions 給 F；和 D 合併 classifier_summary.csv。簡報/報告清楚標成固定 baseline，不稱最佳參數。
+8. 將本角色兩條 pipeline 的逐筆列加入私有 oof_predictions.csv 並交給 F；和 D 合併 classifier_summary.csv。簡報與書面報告清楚標成固定 baseline，不稱最佳參數。
 
 
 ## 和配對角色一起交付
 
-D/E 共用每折的 PCA/LDA features、資料列、label order、positive class、score columns 和衡量方式。比較 Gaussian Naive Bayes 與固定 MLP baseline，不只比較 training accuracy。一起給 F 四條 pipeline 的 OOF 預測和設定摘要。
+D/E 共用每折的 PCA/LDA features、資料列、label order、positive class、score columns 和衡量方式。比較 Gaussian Naive Bayes 與固定 MLP baseline，不只比較 training accuracy。一起給 F 四條 pipeline 的私有 oof_predictions.csv 逐筆列和 classifier_summary.csv。
 
 ## 交付檔案與驗收
 
-matlab/fitMLP.m；matlab/predictMLP.m；synthetic output/score tests；private classifier_summary.csv 與兩條 pipeline 的 OOF predictions；MLP 網路示意與報告結果。
+matlab/fitMLP.m；matlab/predictMLP.m；synthetic output/score tests；private classifier_summary.csv、私有 oof_predictions.csv 的兩條 pipeline rows；MLP 網路示意與簡報、書面報告結果。
 
 完成條件：
 - 合成資料測試通過；尺寸、欄位、label order 和有限值檢查通過。
