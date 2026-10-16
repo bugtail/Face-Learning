@@ -29,7 +29,7 @@ Face pixels, training/test feature matrices, source filename maps, test labels, 
 
 ## Reporting
 
-F supplies separate five-fold and final-test result tables. Report course-required accuracy, ROC/AUC, feature dimensions, classifier parameter counts, training time, and inference time. Label cross-validation and official test results separately. Each person adds their method explanation and verified contribution to both the presentation and written report. Use the same names, settings, metric definitions, and values in both. Never describe training accuracy or cross-validation as the official test result. If the official test package has not been supplied, mark final test evaluation pending.
+F supplies separate five-fold and final-test result tables. Report course-required accuracy, ROC/AUC, feature dimensions, classifier parameter counts, training time, and inference time. Label cross-validation and official test results separately. Each person adds their method explanation and verified contribution to both the presentation and written report. Use the same names, settings, metric definitions, and values in both. Never describe training accuracy or cross-validation as the official test result. When A has not received the official test package, complete cross-validation and label final test evaluation as not run.
 
 ## Git workflow
 

@@ -4,7 +4,7 @@ This schema is the handoff from A to B–F. Read PROJECT_SPECIFICATIONS.md and T
 
 ## Course data split
 
-The course handout specifies 200 training images (100 per class) and a separate 100-image official test set (50 per class). The supplied training folder checked for this update contains the 200 training PNGs. The official test set was not found in the checked locations, so final test evaluation is pending until authorized files are provided.
+The course handout specifies 200 training images (100 per class) and a separate 100-image official test set (50 per class). The current handoff supplies the 200 training PNGs. The course requires a separate 100-image official test package (50 per class), which A obtains from the instructor or authorized source and stores separately. A verifies package count, class balance, image shape, and RGB mode before preparing test_dataset.mat.
 
 ## Private files
 
