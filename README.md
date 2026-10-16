@@ -4,6 +4,10 @@
 
 ## 六人共用的固定規格
 
+課程要求 200 張訓練圖（男女各 100）做五折交叉驗證，並另以獨立的 100 張正式測試圖（男女各 50）做最終評估；測試集必須等程式與設定鎖定後才使用。目前在已提供位置尚未找到測試集，不能以 validation fold 代替。
+
+流程圖可編輯原始檔和 SVG 預覽位於 assets/。
+
 - 專題比較四條 MATLAB 管線：PCA→Gaussian Naive Bayes、PCA→MLP、Fisher LDA→Gaussian Naive Bayes、Fisher LDA→MLP。
 - 目前訓練資料是 200 張 640×640 RGB PNG，man/woman 各 100 張；每類 50 個檔名群組，每組 2 張。檔名第一段是此資料集的 class tag，第二段只當 fold group key，不宣稱是真實身分。
 - A 產生私人 train_dataset.mat：X 為 200×1024 double、y 為 200×1 categorical、sampleID/groupID 各 200 筆、另有 preprocessSpec。X 的每列是一張影像，欄為特徵。
@@ -16,10 +20,11 @@
 - 影像、train_dataset.mat、原始檔名映射、fold manifest、sample-level predictions 和私人路徑不得上傳公開 GitHub 或網站。程式、schema、synthetic tests 和審核後的 aggregate results 才能公開。
 - 全員使用同一 MATLAB release；每次 run 記錄 version -release、ver、Git commit、data/spec version 和設定。簡報與書面報告用相同的方法名、設定、指標和數字。
 
-完整規格與操作圖解：https://face-learning-lab-heetah-20261015.divine-siren-9327.chatgpt.site/docs/PROJECT_SPECIFICATIONS.md
-
+共用規格與交付文件：[PROJECT_SPECIFICATIONS.md](docs/PROJECT_SPECIFICATIONS.md) · [DATA_CONTRACT.md](docs/DATA_CONTRACT.md) · [TEAM_WORKING_RULES.md](docs/TEAM_WORKING_RULES.md) · [AI_COLLABORATION_GUIDE.md](docs/AI_COLLABORATION_GUIDE.md)
 
 ## 本角色的工作順序
+
+E 只使用訓練集和共同 folds 實作 MLP；與 D 對齊類別分數後，把已審核結果交給 F。
 
 從 A/F 拿 train_dataset.mat 與 fold_manifest.csv，呼叫 B/C 的 reducer。fitcnet 固定單層 10-unit ReLU、Standardize=true、Lambda=0、IterationLimit=1000，seed Twister 2026。逐折產生 PCA→MLP 與 LDA→MLP validation 預測。
 
