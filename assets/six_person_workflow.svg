@@ -1,101 +1,62 @@
-<?xml version='1.0' encoding='utf-8'?>
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1740 1120" role="img" aria-labelledby="title desc">
-  <title id="title">FaceLab 六人分組實驗流程</title>
-  <desc id="desc">A 準備並封存訓練與正式測試資料，F 只用訓練資料建立五折；B/C 成對測試降維，D/E 成對測試分類器，兩組成果最後匯入 A/F，設定鎖定後才評估獨立測試集。</desc>
-  <defs>
-    <marker id="ab" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-      <path d="M0 0 L10 5 L0 10 z" fill="#28548E" />
-    </marker>
-    <marker id="at" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-      <path d="M0 0 L10 5 L0 10 z" fill="#277B7A" />
-    </marker>
-    <marker id="ag" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-      <path d="M0 0 L10 5 L0 10 z" fill="#46664C" />
-    </marker>
-    <marker id="ap" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-      <path d="M0 0 L10 5 L0 10 z" fill="#66537E" />
-    </marker>
-    <marker id="ai" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
-      <path d="M0 0 L10 5 L0 10 z" fill="#20262C" />
-    </marker>
-    <style>text{font-family:"Microsoft JhengHei","Noto Sans CJK TC",Arial,sans-serif}.title{font-size:27px;font-weight:700}.subtitle{font-size:16px}.stage{font-size:17px;font-weight:700}.cardtitle{font-size:17px;font-weight:700}.body{font-size:14px}.note{font-size:13px;font-weight:700}.flow{fill:none;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}.blue{stroke:#28548E}.teal{stroke:#277B7A}.green{stroke:#46664C}.purple{stroke:#66537E}.ink{stroke:#20262C}.dashed{stroke-dasharray:7 6}</style>
-  </defs>
-  <rect width="1740" height="1120" fill="#FAF8F2" />
-  <path d="M390 335 H450" class="flow blue" marker-end="url(#ab)" />
-  <path d="M390 550 H420 V450 H450" class="flow teal" marker-end="url(#at)" />
-  <path d="M390 360 H410 V625 H450" class="flow blue dashed" marker-end="url(#ab)" />
-  <path d="M390 592 H420 V733 H450" class="flow teal dashed" marker-end="url(#at)" />
-  <path d="M730 505 V550" class="flow green" marker-end="url(#ag)" />
-  <path d="M1010 365 H1070" class="flow green" marker-end="url(#ag)" />
-  <path d="M1010 695 H1038 V455 H1070" class="flow purple" marker-end="url(#ap)" />
-  <path d="M1380 515 V565" class="flow ink" marker-end="url(#ai)" />
-  <path d="M1380 775 V825" class="flow ink" marker-end="url(#ai)" />
-  <text x="50" y="56" class="title" fill="#20262C">FaceLab｜先分組實驗，再由 A/F 合流</text>
-  <text x="50" y="87" class="subtitle" fill="#20262C">六個角色各自起步；配對完成實驗後，再把可驗證的結果交給 A/F 整合。</text>
-  <rect x="50" y="92" width="1640" height="94" rx="14" fill="#E7EDF4" stroke="#28548E" stroke-width="2" />
-  <text x="68" y="123" class="cardtitle" fill="#28548E">共同資料規則</text>
-  <text x="68" y="154" class="body" fill="#20262C">訓練集：200 張（男女各 100）→ 同一份 group-preserving 五折交叉驗證</text>
-  <text x="68" y="177" class="body" fill="#20262C">正式測試集：另 100 張（男女各 50）→ 程式與設定鎖定後才使用</text>
-  <text x="50" y="228" class="stage" fill="#28548E">01｜先備妥共同輸入</text>
-  <text x="450" y="228" class="stage" fill="#46664C">02｜兩組平行配對實驗</text>
-  <text x="1070" y="228" class="stage" fill="#277B7A">03｜結果匯入 A/F，再做最終評估</text>
-  <rect x="50" y="250" width="340" height="170" rx="14" fill="#FFFEFA" stroke="#28548E" stroke-width="2" />
-  <text x="68" y="281" class="cardtitle" fill="#28548E">A｜資料整理與介面</text>
-  <text x="68" y="312" class="body" fill="#20262C">MATLAB：imageDatastore、imread</text>
-  <text x="68" y="335" class="body" fill="#20262C">交付私人 train_dataset.mat（200 張）</text>
-  <text x="68" y="358" class="body" fill="#20262C">另備 test_dataset.mat（100 張）；</text>
-  <text x="68" y="381" class="body" fill="#20262C">與訓練資料分開保管並封存</text>
-  <rect x="50" y="465" width="340" height="170" rx="14" fill="#FFFEFA" stroke="#277B7A" stroke-width="2" />
-  <text x="68" y="496" class="cardtitle" fill="#277B7A">F｜訓練集五折與評估</text>
-  <text x="68" y="527" class="body" fill="#20262C">只用 200 張訓練圖建立 fold_manifest.csv</text>
-  <text x="68" y="550" class="body" fill="#20262C">類別平衡、同一 group 不跨 fold</text>
-  <text x="68" y="573" class="body" fill="#20262C">四種組合共用相同 fold ID</text>
-  <text x="68" y="596" class="body" fill="#20262C">正式測試集不進入交叉驗證</text>
-  <rect x="450" y="250" width="560" height="255" rx="14" fill="#FFFEFA" stroke="#46664C" stroke-width="2" />
-  <text x="468" y="281" class="cardtitle" fill="#46664C">B + C｜降維配對實驗</text>
-  <text x="468" y="312" class="body" fill="#20262C">介面先用合成矩陣確認；</text>
-  <rect x="470" y="335" width="250" height="95" rx="10" fill="#F0F4F0" stroke="#46664C" stroke-width="2" />
-  <text x="488" y="366" class="cardtitle" fill="#46664C">B｜PCA</text>
-  <text x="488" y="412" class="body" fill="#20262C">每折 fitPCA(Xtrain)</text>
-  <text x="488" y="435" class="body" fill="#20262C">同模型投影 train、validation</text>
-  <rect x="740" y="335" width="250" height="95" rx="10" fill="#F8F0ED" stroke="#AD573E" stroke-width="2" />
-  <text x="758" y="366" class="cardtitle" fill="#AD573E">C｜Fisher LDA</text>
-  <text x="758" y="397" class="body" fill="#20262C">每折 fitLDA(Xtrain, ytrain)</text>
-  <text x="758" y="435" class="body" fill="#20262C">二分類一維；用 SVD 求解</text>
-  <text x="470" y="493" class="note" fill="#46664C">交付：fit/transform API、reduction_summary.csv、合成測試</text>
-  <rect x="450" y="550" width="560" height="255" rx="14" fill="#FFFEFA" stroke="#66537E" stroke-width="2" />
-  <text x="468" y="581" class="cardtitle" fill="#66537E">D + E｜分類器配對實驗</text>
-  <text x="468" y="612" class="body" fill="#20262C">兩人可先用 synthetic Z 磨合介面；拿到 B/C reducer 後，再跑正式訓練 folds。</text>
-  <rect x="470" y="635" width="250" height="95" rx="10" fill="#F2EFF5" stroke="#66537E" stroke-width="2" />
-  <text x="488" y="666" class="cardtitle" fill="#66537E">D｜Gaussian Naive Bayes</text>
-  <text x="488" y="712" class="body" fill="#20262C">fitcnb：normal 分布</text>
-  <text x="488" y="735" class="body" fill="#20262C">empirical prior；比較 PCA / LDA</text>
-  <rect x="740" y="635" width="250" height="95" rx="10" fill="#F7F3E9" stroke="#A17B35" stroke-width="2" />
-  <text x="758" y="666" class="cardtitle" fill="#A17B35">E｜固定 MLP baseline</text>
-  <text x="758" y="712" class="body" fill="#20262C">fitcnet：10 ReLU units</text>
-  <text x="758" y="735" class="body" fill="#20262C">只用 train fit；記參數時間</text>
-  <text x="470" y="793" class="note" fill="#66537E">交付：classifier_summary.csv；私有 OOF 結果交 F</text>
-  <rect x="1070" y="250" width="620" height="265" rx="16" fill="#EAF3F1" stroke="#277B7A" stroke-width="2" />
-  <text x="1088" y="281" class="cardtitle" fill="#277B7A">A + F｜四種組合合流與五折驗收</text>
-  <text x="1088" y="312" class="body" fill="#20262C">核對資料列、標籤順序、fold ID、score 欄位與輸出格式。</text>
-  <text x="1088" y="335" class="body" fill="#20262C">整合 PCA/LDA × Bayes/MLP；所有方法讀相同 fold_manifest.csv。</text>
-  <text x="1088" y="358" class="body" fill="#20262C">整理 CV 的 Accuracy、ROC/AUC、特徵維度、參數數量與時間。</text>
-  <text x="1088" y="381" class="body" fill="#20262C">全部方法結果和共同規格確認後，鎖定程式與設定。</text>
-  <rect x="1070" y="565" width="620" height="210" rx="16" fill="#F8F0ED" stroke="#AD573E" stroke-width="2" />
-  <text x="1088" y="596" class="cardtitle" fill="#AD573E">設定鎖定後，才評估正式測試集</text>
-  <text x="1088" y="627" class="body" fill="#20262C">每條管線用全部 200 張訓練圖重新 fit，再評估獨立的 100 張測試圖。</text>
-  <text x="1088" y="650" class="body" fill="#20262C">不在測試圖上 fit、挑選設定或調參；最終跑一次並記錄例外。</text>
-  <text x="1088" y="673" class="body" fill="#20262C">報告 test Accuracy、ROC/AUC、特徵維度、參數數量、</text>
-  <text x="1088" y="696" class="body" fill="#20262C">全訓練集 fit 時間與 100 張推論時間；逐筆資料留在私人位置。</text>
-  <rect x="1070" y="825" width="620" height="135" rx="14" fill="#FFFEFA" stroke="#20262C" stroke-width="2" />
-  <text x="1088" y="856" class="cardtitle" fill="#20262C">全員｜簡報與書面報告</text>
-  <text x="1088" y="887" class="body" fill="#20262C">B/C、D/E 先交方法說明與審核結果；A/F 統整語意和結果。</text>
-  <text x="1088" y="910" class="body" fill="#20262C">兩份文件使用相同方法名稱、設定、指標、數字與限制。</text>
-  <rect x="50" y="850" width="960" height="110" rx="14" fill="#F7F3E9" stroke="#A17B35" stroke-width="2" />
-  <text x="68" y="881" class="cardtitle" fill="#A17B35">資料狀態</text>
-  <text x="68" y="912" class="body" fill="#20262C">本次檢查的 train 目錄含 200 張；獨立 100 張官方測試集尚未在已提供位置找到。</text>
-  <text x="68" y="935" class="body" fill="#20262C">測試集到手前照常完成五折實驗；最終測試結果標示為待資料，不拿 validation 代替。</text>
-  <text x="50" y="1040" class="note" fill="#5D666D">線條表示資料或介面依賴；A/F 的整合發生在兩組完成各自配對實驗之後。</text>
-  <text x="468" y="335" class="body" fill="#20262C">正式逐 fold 只用 train rows fit。</text>
-  <text x="468" y="635" class="body" fill="#20262C">拿到 B/C API 後，再跑訓練 folds。</text>
-</svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="1120" height="1450" viewBox="0 0 1120 1450" role="img" aria-labelledby="title desc">
+<title id="title">桌面｜六人分組實驗</title><desc id="desc">A 與 F 備妥共同輸入，B/C 與 D/E 各自完成配對實驗，再匯整到 A/F，鎖定設定後執行正式測試並完成報告。</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9" fill="none" stroke="context-stroke" stroke-width="1.7" stroke-linejoin="round"/></marker></defs>
+<rect width="1120" height="1450" fill="#fffefa"/>
+<g font-family="'Microsoft JhengHei','Noto Sans TC',Arial,sans-serif">
+<path id="a-to-f" d="M540 261 L580 261" fill="none" stroke="#315e77" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path id="input-to-bc" d="M830 340 L830 382 L290 382 L290 478" fill="none" stroke="#9aa79e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path id="input-to-de" d="M830 382 L830 478" fill="none" stroke="#9aa79e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path id="bc-to-de" d="M540 636 L580 636" fill="none" stroke="#40664c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path id="bc-to-merge" d="M290 820 L290 860 L560 860" fill="none" stroke="#40664c" stroke-width="2" stroke-linejoin="round" />
+<path id="de-to-merge" d="M830 820 L830 860 L560 860" fill="none" stroke="#705a76" stroke-width="2" stroke-linejoin="round" />
+<path id="results-to-af" d="M560 860 L560 938" fill="none" stroke="#202923" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path id="af-to-test" d="M560 1096 L560 1148 L290 1148 L290 1170" fill="none" stroke="#202923" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path id="test-to-report" d="M540 1252 L580 1252" fill="none" stroke="#85603a" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text id="text-0"  x="40" y="60" font-size="36" font-weight="700" fill="#202923" text-anchor="start">六個角色，兩組實驗，一起交付。</text>
+<text id="text-1"  x="40" y="101" font-size="20" font-weight="400" fill="#59655d" text-anchor="start">資料與切分先一致；兩組完成實驗後，再匯入 A / F。</text>
+<text id="text-2"  x="40" y="155" font-size="16" font-weight="700" fill="#59655d" text-anchor="start">01　共同輸入</text>
+<rect id="card-a" x="40" y="182" width="500" height="158" rx="16" fill="#f1f5f7" stroke="#d7dfd8"/>
+<text id="text-3" data-card="card-a" x="64" y="222" font-size="25" font-weight="700" fill="#315e77" text-anchor="start">A　資料整理</text>
+<text id="text-4" data-card="card-a" x="64" y="263" font-size="20" font-weight="400" fill="#202923" text-anchor="start">200 張訓練圖 → train_dataset.mat</text>
+<text id="text-5" data-card="card-a" x="64" y="299" font-size="20" font-weight="400" fill="#202923" text-anchor="start">另備 100 張正式測試圖，分開封存。</text>
+<rect id="card-f" x="580" y="182" width="500" height="158" rx="16" fill="#f1f5f7" stroke="#d7dfd8"/>
+<text id="text-6" data-card="card-f" x="604" y="222" font-size="25" font-weight="700" fill="#315e77" text-anchor="start">F　共同切分</text>
+<text id="text-7" data-card="card-f" x="604" y="263" font-size="20" font-weight="400" fill="#202923" text-anchor="start">只用訓練集 → fold_manifest.csv</text>
+<text id="text-8" data-card="card-f" x="604" y="299" font-size="20" font-weight="400" fill="#202923" text-anchor="start">同組不跨折；四種方法共用五折。</text>
+<text id="text-9"  x="40" y="449" font-size="16" font-weight="700" fill="#59655d" text-anchor="start">02　兩組各自實驗與 review</text>
+<rect id="card-bc" x="40" y="478" width="500" height="342" rx="16" fill="#f0f5ee" stroke="#d7dfd8"/>
+<text id="text-10" data-card="card-bc" x="64" y="518" font-size="25" font-weight="700" fill="#40664c" text-anchor="start">B / C　降維實驗</text>
+<text id="text-11" data-card="card-bc" x="64" y="557" font-size="21" font-weight="700" fill="#40664c" text-anchor="start">B：PCA　　C：Fisher LDA</text>
+<text id="text-12" data-card="card-bc" x="64" y="601" font-size="20" font-weight="400" fill="#202923" text-anchor="start">① 先確認 fit / transform 介面</text>
+<text id="text-13" data-card="card-bc" x="64" y="636" font-size="20" font-weight="400" fill="#202923" text-anchor="start">② 每折只用 train fit，再投影 validation</text>
+<text id="text-14" data-card="card-bc" x="64" y="671" font-size="20" font-weight="400" fill="#202923" text-anchor="start">③ 互查維度、秩與投影結果</text>
+<text id="text-15" data-card="card-bc" x="64" y="725" font-size="15" font-weight="700" fill="#59655d" text-anchor="start">這組要交付</text>
+<text id="text-16" data-card="card-bc" x="64" y="758" font-size="19" font-weight="400" fill="#202923" text-anchor="start">reducer API · reduction_summary.csv</text>
+<text id="text-17" data-card="card-bc" x="64" y="788" font-size="19" font-weight="400" fill="#202923" text-anchor="start">維度與投影檢查結果、合成測試</text>
+<rect id="card-de" x="580" y="478" width="500" height="342" rx="16" fill="#f5f0f6" stroke="#d7dfd8"/>
+<text id="text-18" data-card="card-de" x="604" y="518" font-size="25" font-weight="700" fill="#705a76" text-anchor="start">D / E　分類器實驗</text>
+<text id="text-19" data-card="card-de" x="604" y="557" font-size="21" font-weight="700" fill="#705a76" text-anchor="start">D：Bayes　　E：MLP</text>
+<text id="text-20" data-card="card-de" x="604" y="601" font-size="20" font-weight="400" fill="#202923" text-anchor="start">① 兩人先用合成特徵測分類介面</text>
+<text id="text-21" data-card="card-de" x="604" y="636" font-size="20" font-weight="400" fill="#202923" text-anchor="start">② 接 B/C reducer，跑同一份五折</text>
+<text id="text-22" data-card="card-de" x="604" y="671" font-size="20" font-weight="400" fill="#202923" text-anchor="start">③ 互查標籤、分數欄位與設定</text>
+<text id="text-23" data-card="card-de" x="604" y="725" font-size="15" font-weight="700" fill="#59655d" text-anchor="start">這組要交付</text>
+<text id="text-24" data-card="card-de" x="604" y="758" font-size="19" font-weight="400" fill="#202923" text-anchor="start">classifier API · classifier_summary.csv</text>
+<text id="text-25" data-card="card-de" x="604" y="788" font-size="19" font-weight="400" fill="#202923" text-anchor="start">各折預測、參數量、訓練與推論時間</text>
+<text id="text-26"  x="40" y="906" font-size="16" font-weight="700" fill="#59655d" text-anchor="start">03　兩組完成後，交給 A / F</text>
+<rect id="card-af" x="40" y="938" width="1040" height="158" rx="16" fill="#eaf1eb" stroke="#d7dfd8"/>
+<text id="text-27" data-card="card-af" x="64" y="978" font-size="26" font-weight="700" fill="#40664c" text-anchor="start">A / F　匯整兩組實驗</text>
+<text id="text-28" data-card="card-af" x="64" y="1024" font-size="20" font-weight="400" fill="#202923" text-anchor="start">整合 PCA / LDA × Bayes / MLP；核對共同五折的數據與格式。</text>
+<text id="text-29" data-card="card-af" x="64" y="1061" font-size="20" font-weight="400" fill="#202923" text-anchor="start">彙整 Accuracy、ROC/AUC、維度、參數量與時間，鎖定程式與設定。</text>
+<text id="text-30"  x="40" y="1142" font-size="16" font-weight="700" fill="#59655d" text-anchor="start">04　正式測試 → 報告</text>
+<rect id="card-test" x="40" y="1170" width="500" height="164" rx="16" fill="#faf3e9" stroke="#d7dfd8"/>
+<text id="text-31" data-card="card-test" x="64" y="1210" font-size="24" font-weight="700" fill="#85603a" text-anchor="start">F　正式測試</text>
+<text id="text-32" data-card="card-test" x="64" y="1251" font-size="19" font-weight="400" fill="#202923" text-anchor="start">全部訓練圖重新 fit，再評估正式測試集。</text>
+<text id="text-33" data-card="card-test" x="64" y="1287" font-size="19" font-weight="400" fill="#202923" text-anchor="start">由 A 解除封存、F 執行並記錄結果。</text>
+<rect id="card-report" x="580" y="1170" width="500" height="164" rx="16" fill="#f3f3ef" stroke="#d7dfd8"/>
+<text id="text-34" data-card="card-report" x="604" y="1210" font-size="24" font-weight="700" fill="#202923" text-anchor="start">全員　簡報與書面報告</text>
+<text id="text-35" data-card="card-report" x="604" y="1251" font-size="19" font-weight="400" fill="#202923" text-anchor="start">B/C、D/E 交方法與結果；A/F 統整。</text>
+<text id="text-36" data-card="card-report" x="604" y="1287" font-size="19" font-weight="400" fill="#202923" text-anchor="start">兩份文件使用相同名稱、設定與數字。</text>
+<text id="text-37"  x="40" y="1380" font-size="18" font-weight="400" fill="#59655d" text-anchor="start">每折只用 train fit；正式測試集等設定鎖定後才使用。</text>
+<text id="text-38"  x="40" y="1414" font-size="17" font-weight="400" fill="#59655d" text-anchor="start">橫向箭頭：B/C 的 reducer 交給 D/E；兩組實驗結果最後在 A/F 匯合。</text>
+</g></svg>
