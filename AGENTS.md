@@ -34,7 +34,7 @@ Gaussian Naive Bayes 以每個 class/feature 的 Gaussian 分布估計 likelihoo
 5. 固定 fitcnb 的 DistributionNames='normal'、Prior='empirical'；不加平滑、不調分布。外層 training 每類等量，empirical priors 會依該 fold 實際頻率估計。
 6. 對 validation 呼叫 predict。保存 yhat、scores、model.ClassNames；用 ClassNames 找 woman 分數欄，不能硬寫欄號。
 7. 每個 fold/兩條 Bayes pipeline 都記錄 fitSeconds、predictSeconds、class names、設定和錯誤檢查；sample-level OOF CSV 私下交 F。
-8. 與 E 合併 classifier_summary.csv；和 E 一起把 Bayes 假設、兩組結果、限制和 F 的指標放進簡報與報告。
+8. 與 E 合併 classifier_summary.csv；和 E 一起把 Bayes 假設、兩組結果、限制和 F 的指標放進簡報與書面報告。
 
 
 ## 和配對角色一起交付
