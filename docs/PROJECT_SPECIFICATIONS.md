@@ -16,9 +16,9 @@ The course handout specifies 200 training images (100 per class) and a separate 
 
 For this project, the first filename token is the dataset class tag and the second token is the split group key. The group key keeps the two filename-paired training images in one fold; it is not a claim about a person's identity. Do not publish the original filename list.
 
-The separate 100-image official test set was not found in the checked training folder or the checked project test location as of 2026-10-16. The course still requires it. Obtain the official test set from the instructor or another authorized source before final test evaluation. Do not substitute a validation fold or create test images from the training set.
+The current handoff contains the 200 training PNGs. The course handout requires a separate official test package of 100 images (50 per class); A obtains this package from the instructor or another authorized source and stores it separately. The checked training folder contains no test images. Do not substitute a validation fold or create test images from the training set.
 
-The training-image shape and color mode are measured facts. The official test image shape and color mode have not yet been checked. Before converting test images, verify their dimensions and RGB mode. If they differ from the fixed training input, stop and agree on a revised shared preprocessing contract; do not silently resize, crop, or convert them.
+The training-image shape and color mode are measured facts. A verifies the official test image dimensions and RGB mode before conversion. If they differ from the fixed training input, stop and agree on a revised shared preprocessing contract; do not silently resize, crop, or convert them.
 
 ## A's handoff files
 
@@ -124,7 +124,7 @@ After all four pipelines pass review and their code and settings are frozen, F r
 - For the final model's ROC/AUC, use its continuous test scores with woman as the positive class. Report accuracy and AUC as the course requires; balanced accuracy is supplementary.
 - Report the five-fold timing summary and the final full-training fit/test-inference timings as separate quantities. Do not mix them.
 
-The official test set has not been found in the supplied locations checked for this update. Until it is obtained, report the final test result as pending; do not relabel cross-validation as a final test result. There is no substitute test set.
+Run the final test after A obtains the official 100-image package and the team freezes code and settings. Before that handoff, label final test evaluation as not run; report the cross-validation results separately. Never substitute a validation fold for the official test set.
 
 ## Pair work and final handoff
 
