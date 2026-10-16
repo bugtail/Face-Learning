@@ -2,6 +2,12 @@
 
 ## 專題背景與固定規格
 
+本課程要用 MATLAB 建立人臉性別辨識系統，比較 PCA + Bayes、LDA + Bayes、PCA + MLP、LDA + MLP 四種方法；課程要求 200 張訓練圖（男女各 100）、五折交叉驗證，以及獨立的 100 張正式測試圖（男女各 50）。報告需包含 Accuracy、ROC/AUC、特徵維度、分類器參數量、訓練與推論時間。
+
+MATLAB 是正式實驗環境；GitHub 分支放程式、合成測試與文件；人臉資料和逐筆預測放私人位置；網站只做教學展示。A 封裝資料、F 只用訓練集建立共同 folds、B/C 配對實作降維、D/E 配對實作分類器，最後由 A/F 整合四種管線和報告。正式測試資料等程式與設定鎖定後才交給 F。
+
+目前確認的 train 資料夾有 200 張訓練圖；獨立 100 張正式測試集未在已提供位置找到。不可自行製造測試資料，也不可把 validation fold 稱為正式測試結果。完整數學設定、資料契約、共同規範與 AI 使用方式見 docs/ 下四份共用文件。
+
 ## 六人共用的固定規格
 
 - 專題比較四條 MATLAB 管線：PCA→Gaussian Naive Bayes、PCA→MLP、Fisher LDA→Gaussian Naive Bayes、Fisher LDA→MLP。
@@ -16,7 +22,7 @@
 - 影像、train_dataset.mat、原始檔名映射、fold manifest、sample-level predictions 和私人路徑不得上傳公開 GitHub 或網站。程式、schema、synthetic tests 和審核後的 aggregate results 才能公開。
 - 全員使用同一 MATLAB release；每次 run 記錄 version -release、ver、Git commit、data/spec version 和設定。簡報與書面報告用相同的方法名、設定、指標和數字。
 
-完整規格與操作圖解：https://face-learning-lab-heetah-20261015.divine-siren-9327.chatgpt.site/docs/PROJECT_SPECIFICATIONS.md
+共用規格與交付文件：[PROJECT_SPECIFICATIONS.md](docs/PROJECT_SPECIFICATIONS.md) · [DATA_CONTRACT.md](docs/DATA_CONTRACT.md) · [TEAM_WORKING_RULES.md](docs/TEAM_WORKING_RULES.md) · [AI_COLLABORATION_GUIDE.md](docs/AI_COLLABORATION_GUIDE.md)
 
 
 ## 角色責任
