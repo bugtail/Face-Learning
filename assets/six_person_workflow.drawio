@@ -1,0 +1,131 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" agent="Codex" version="24.7.17" type="device">
+  <diagram id="six-person-face-lab-v11" name="六人分組實驗與 A-F 合流">
+    <mxGraphModel dx="1740" dy="1120" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1740" pageHeight="1120" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eA_BC" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#28548E;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.35;" edge="1" parent="1" source="A" target="BC">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="420" y="335" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eF_BC" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#277B7A;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.78;" edge="1" parent="1" source="F" target="BC">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="420" y="550" />
+              <mxPoint x="420" y="450" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eA_DE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#28548E;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.65;entryX=0;entryY=0.3;" edge="1" parent="1" source="A" target="DE">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="410" y="360" />
+              <mxPoint x="410" y="625" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eF_DE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#277B7A;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.75;entryX=0;entryY=0.72;" edge="1" parent="1" source="F" target="DE">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="420" y="590" />
+              <mxPoint x="420" y="733" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eBC_DE" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46664C;strokeWidth=2;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="BC" target="DE">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="730" y="525" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eBC_merge" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#46664C;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.45;entryX=0;entryY=0.42;" edge="1" parent="1" source="BC" target="merge">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="eDE_merge" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#66537E;strokeWidth=2;endArrow=block;endFill=1;exitX=1;exitY=0.58;entryX=0;entryY=0.78;" edge="1" parent="1" source="DE" target="merge">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1035" y="700" />
+              <mxPoint x="1035" y="455" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eMerge_test" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#20262C;strokeWidth=2;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="merge" target="test">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1380" y="540" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="eTest_report" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;strokeColor=#20262C;strokeWidth=2;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="test" target="report">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1380" y="800" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="title" value="&lt;b&gt;FaceLab｜先分組實驗，再由 A/F 合流&lt;/b&gt;&lt;br&gt;六個角色各自起步；配對完成實驗後，再把可驗證的結果交給 A/F 整合。" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=25;fontStyle=1;fontColor=#20262C;" vertex="1" parent="1">
+          <mxGeometry x="50" y="25" width="1640" height="50" as="geometry" />
+        </mxCell>
+        <mxCell id="rules" value="&lt;b&gt;共同資料規則&lt;/b&gt;&lt;br&gt;&lt;br&gt;訓練集：200 張（男女各 100）→ 同一份 group-preserving 五折交叉驗證&lt;br&gt;正式測試集：另 100 張（男女各 50）→ 程式與設定鎖定後才使用" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#E7EDF4;strokeColor=#28548E;strokeWidth=1.6;fontFamily=Arial;fontSize=13;fontColor=#20262C;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="92" width="1640" height="94" as="geometry" />
+        </mxCell>
+        <mxCell id="s1" value="&lt;b&gt;01｜先備妥共同輸入&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=16;fontStyle=1;fontColor=#28548E;" vertex="1" parent="1">
+          <mxGeometry x="50" y="205" width="340" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="s2" value="&lt;b&gt;02｜兩組平行配對實驗&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=16;fontStyle=1;fontColor=#46664C;" vertex="1" parent="1">
+          <mxGeometry x="450" y="205" width="560" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="s3" value="&lt;b&gt;03｜結果匯入 A/F，再做最終評估&lt;/b&gt;" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=16;fontStyle=1;fontColor=#277B7A;" vertex="1" parent="1">
+          <mxGeometry x="1070" y="205" width="620" height="35" as="geometry" />
+        </mxCell>
+        <mxCell id="A" value="&lt;b&gt;A｜資料整理與介面&lt;/b&gt;&lt;br&gt;&lt;br&gt;MATLAB：imageDatastore、imread&lt;br&gt;交付私人 train_dataset.mat（200 張）&lt;br&gt;另備 test_dataset.mat（100 張）；&lt;br&gt;與訓練資料分開保管並封存" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#FFFEFA;strokeColor=#28548E;strokeWidth=1.6;fontFamily=Arial;fontSize=13;fontColor=#20262C;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="250" width="340" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="F" value="&lt;b&gt;F｜訓練集五折與評估&lt;/b&gt;&lt;br&gt;&lt;br&gt;只用 200 張訓練圖建立 fold_manifest.csv&lt;br&gt;類別平衡、同一 group 不跨 fold&lt;br&gt;四種組合共用相同 fold ID&lt;br&gt;正式測試集不進入交叉驗證" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#FFFEFA;strokeColor=#277B7A;strokeWidth=1.6;fontFamily=Arial;fontSize=13;fontColor=#20262C;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="465" width="340" height="170" as="geometry" />
+        </mxCell>
+        <mxCell id="BC" value="&lt;b&gt;B + C｜降維配對實驗&lt;/b&gt;&lt;br&gt;&lt;br&gt;介面先用合成矩陣確認；&lt;br&gt;正式逐 fold 只用 train rows fit。" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#FFFEFA;strokeColor=#46664C;strokeWidth=1.6;fontFamily=Arial;fontSize=13;fontColor=#20262C;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="450" y="250" width="560" height="255" as="geometry" />
+        </mxCell>
+        <mxCell id="B" value="&lt;b&gt;B｜PCA&lt;/b&gt;&lt;br&gt;&lt;br&gt;每折 fitPCA(Xtrain)&lt;br&gt;同模型投影 train、validation" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#F0F4F0;strokeColor=#46664C;strokeWidth=1.6;fontFamily=Arial;fontSize=13;fontColor=#20262C;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="470" y="350" width="250" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="C" value="&lt;b&gt;C｜Fisher LDA&lt;/b&gt;&lt;br&gt;&lt;br&gt;fitLDA(Xtrain, ytrain)&lt;br&gt;二分類一維；用 SVD 求解" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#F8F0ED;strokeColor=#AD573E;strokeWidth=1.6;fontFamily=Arial;fontSize=13;fontColor=#20262C;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="740" y="350" width="250" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="BCout" value="交付：fit/transform API、reduction_summary.csv、合成測試" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=12;fontStyle=1;fontColor=#46664C;" vertex="1" parent="1">
+          <mxGeometry x="470" y="465" width="520" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="DE" value="&lt;b&gt;D + E｜分類器配對實驗&lt;/b&gt;&lt;br&gt;&lt;br&gt;先用 synthetic Z 對齊分類介面；&lt;br&gt;拿到 B/C API 後，再跑訓練 folds。" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#FFFEFA;strokeColor=#66537E;strokeWidth=1.6;fontFamily=Arial;fontSize=13;fontColor=#20262C;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="450" y="550" width="560" height="255" as="geometry" />
+        </mxCell>
+        <mxCell id="D" value="&lt;b&gt;D｜Gaussian Naive Bayes&lt;/b&gt;&lt;br&gt;&lt;br&gt;fitcnb：normal 分布&lt;br&gt;empirical prior；比較 PCA / LDA" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#F2EFF5;strokeColor=#66537E;strokeWidth=1.6;fontFamily=Arial;fontSize=13;fontColor=#20262C;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="470" y="650" width="250" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="E" value="&lt;b&gt;E｜固定 MLP baseline&lt;/b&gt;&lt;br&gt;&lt;br&gt;fitcnet：10 ReLU units&lt;br&gt;只用 train fit；記參數時間" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#F7F3E9;strokeColor=#A17B35;strokeWidth=1.6;fontFamily=Arial;fontSize=13;fontColor=#20262C;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="740" y="650" width="250" height="105" as="geometry" />
+        </mxCell>
+        <mxCell id="DEout" value="交付：classifier_summary.csv；私有 OOF 結果交 F" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;fontFamily=Arial;fontSize=12;fontStyle=1;fontColor=#66537E;" vertex="1" parent="1">
+          <mxGeometry x="470" y="765" width="520" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="merge" value="&lt;b&gt;A + F｜四種組合合流與五折驗收&lt;/b&gt;&lt;br&gt;&lt;br&gt;核對資料列、標籤順序、fold ID、score 欄位與輸出格式。&lt;br&gt;整合 PCA/LDA × Bayes/MLP；所有方法讀相同 fold_manifest.csv。&lt;br&gt;整理 CV 的 Accuracy、ROC/AUC、特徵維度、參數數量與時間。&lt;br&gt;全部方法結果和共同規格確認後，鎖定程式與設定。" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#EAF3F1;strokeColor=#277B7A;strokeWidth=1.6;fontFamily=Arial;fontSize=13;fontColor=#20262C;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="1070" y="250" width="620" height="265" as="geometry" />
+        </mxCell>
+        <mxCell id="test" value="&lt;b&gt;設定鎖定後，才評估正式測試集&lt;/b&gt;&lt;br&gt;&lt;br&gt;每條管線用全部 200 張訓練圖重新 fit，再評估獨立的 100 張測試圖。&lt;br&gt;不在測試圖上 fit、挑選設定或調參；最終跑一次並記錄例外。&lt;br&gt;報告 test Accuracy、ROC/AUC、特徵維度、參數數量、&lt;br&gt;全訓練集 fit 時間與 100 張推論時間；逐筆資料留在私人位置。" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#F8F0ED;strokeColor=#AD573E;strokeWidth=1.6;fontFamily=Arial;fontSize=13;fontColor=#20262C;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="1070" y="565" width="620" height="210" as="geometry" />
+        </mxCell>
+        <mxCell id="report" value="&lt;b&gt;全員｜簡報與書面報告&lt;/b&gt;&lt;br&gt;&lt;br&gt;B/C、D/E 先交方法說明與審核結果；A/F 統整語意和結果。&lt;br&gt;兩份文件使用相同方法名稱、設定、指標、數字與限制。" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#FFFEFA;strokeColor=#20262C;strokeWidth=1.6;fontFamily=Arial;fontSize=13;fontColor=#20262C;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="1070" y="825" width="620" height="135" as="geometry" />
+        </mxCell>
+        <mxCell id="status" value="&lt;b&gt;資料狀態&lt;/b&gt;&lt;br&gt;&lt;br&gt;本次檢查的 train 目錄含 200 張；獨立 100 張官方測試集尚未在已提供位置找到。&lt;br&gt;測試集到手前照常完成五折實驗；最終測試結果標示為待資料，不拿 validation 代替。" style="rounded=1;whiteSpace=wrap;html=1;arcSize=12;fillColor=#F7F3E9;strokeColor=#A17B35;strokeWidth=1.6;fontFamily=Arial;fontSize=13;fontColor=#20262C;align=left;verticalAlign=top;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="50" y="850" width="960" height="110" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
