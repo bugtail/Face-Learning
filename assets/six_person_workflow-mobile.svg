@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" width="400" height="1920" viewBox="0 0 400 1920" role="img" aria-labelledby="title desc">
+<title id="title">手機｜六人分組實驗</title><desc id="desc">A 與 F 備妥共同輸入，B/C 與 D/E 各自完成配對實驗，再匯整到 A/F，鎖定設定後執行正式測試並完成報告。</desc>
+<defs><marker id="arrow" markerWidth="9" markerHeight="9" refX="8" refY="4.5" orient="auto" markerUnits="userSpaceOnUse"><path d="M0 0 L9 4.5 L0 9" fill="none" stroke="context-stroke" stroke-width="1.7" stroke-linejoin="round"/></marker></defs>
+<rect width="400" height="1920" fill="#fffefa"/>
+<g font-family="'Microsoft JhengHei','Noto Sans TC',Arial,sans-serif">
+<path id="a-to-f" d="M200 315 L200 342" fill="none" stroke="#315e77" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path id="input-to-pairs" d="M200 487 L200 519" fill="none" stroke="#9aa79e" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path id="bc-to-de" d="M200 828 L200 851" fill="none" stroke="#40664c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path id="bc-to-af" d="M380 802 L392 802 L392 1380 L380 1380" fill="none" stroke="#40664c" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path id="de-to-af" d="M200 1152 L200 1230" fill="none" stroke="#705a76" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path id="af-to-test" d="M200 1432 L200 1500" fill="none" stroke="#202923" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<path id="test-to-report" d="M200 1645 L200 1695" fill="none" stroke="#85603a" stroke-width="2" stroke-linejoin="round" marker-end="url(#arrow)"/>
+<text id="text-0"  x="20" y="43" font-size="25" font-weight="700" fill="#202923" text-anchor="start">先分組實驗，再一起交付</text>
+<text id="text-1"  x="20" y="79" font-size="16" font-weight="400" fill="#59655d" text-anchor="start">六個角色，使用同一份資料與切分。</text>
+<text id="text-2"  x="20" y="105" font-size="16" font-weight="400" fill="#59655d" text-anchor="start">B/C、D/E 先實驗，再交給 A/F。</text>
+<text id="text-3"  x="20" y="146" font-size="14" font-weight="700" fill="#59655d" text-anchor="start">01　共同輸入</text>
+<rect id="card-a" x="20" y="165" width="360" height="150" rx="16" fill="#f1f5f7" stroke="#d7dfd8"/>
+<text id="text-4" data-card="card-a" x="44" y="205" font-size="22" font-weight="700" fill="#315e77" text-anchor="start">A　資料整理</text>
+<text id="text-5" data-card="card-a" x="44" y="247" font-size="16" font-weight="400" fill="#202923" text-anchor="start">200 張訓練圖 → train_dataset.mat</text>
+<text id="text-6" data-card="card-a" x="44" y="278" font-size="16" font-weight="400" fill="#202923" text-anchor="start">正式測試集 100 張，另行封存。</text>
+<rect id="card-f" x="20" y="342" width="360" height="145" rx="16" fill="#f1f5f7" stroke="#d7dfd8"/>
+<text id="text-7" data-card="card-f" x="44" y="382" font-size="22" font-weight="700" fill="#315e77" text-anchor="start">F　共同切分</text>
+<text id="text-8" data-card="card-f" x="44" y="424" font-size="16" font-weight="400" fill="#202923" text-anchor="start">訓練集 → fold_manifest.csv</text>
+<text id="text-9" data-card="card-f" x="44" y="455" font-size="16" font-weight="400" fill="#202923" text-anchor="start">同組不跨折；四種方法共用五折。</text>
+<text id="text-10"  x="20" y="548" font-size="14" font-weight="700" fill="#59655d" text-anchor="start">02　兩組各自實驗與 review</text>
+<rect id="card-bc" x="20" y="568" width="360" height="260" rx="16" fill="#f0f5ee" stroke="#d7dfd8"/>
+<text id="text-11" data-card="card-bc" x="44" y="608" font-size="22" font-weight="700" fill="#40664c" text-anchor="start">B / C　降維實驗</text>
+<text id="text-12" data-card="card-bc" x="44" y="646" font-size="17" font-weight="700" fill="#40664c" text-anchor="start">B：PCA　　C：Fisher LDA</text>
+<text id="text-13" data-card="card-bc" x="44" y="683" font-size="16" font-weight="400" fill="#202923" text-anchor="start">每折只用 train fit，再投影 validation。</text>
+<text id="text-14" data-card="card-bc" x="44" y="713" font-size="16" font-weight="400" fill="#202923" text-anchor="start">兩人互查維度、秩與投影結果。</text>
+<text id="text-15" data-card="card-bc" x="44" y="758" font-size="16" font-weight="700" fill="#40664c" text-anchor="start">交付：reducer API</text>
+<text id="text-16" data-card="card-bc" x="44" y="788" font-size="16" font-weight="400" fill="#202923" text-anchor="start">reduction_summary.csv、合成測試</text>
+<text id="text-17"  x="200" y="875" font-size="14" font-weight="400" fill="#59655d" text-anchor="middle">B/C 提供降維介面，D/E 接著跑 folds</text>
+<rect id="card-de" x="20" y="892" width="360" height="260" rx="16" fill="#f5f0f6" stroke="#d7dfd8"/>
+<text id="text-18" data-card="card-de" x="44" y="932" font-size="22" font-weight="700" fill="#705a76" text-anchor="start">D / E　分類器實驗</text>
+<text id="text-19" data-card="card-de" x="44" y="970" font-size="17" font-weight="700" fill="#705a76" text-anchor="start">D：Bayes　　E：MLP</text>
+<text id="text-20" data-card="card-de" x="44" y="1007" font-size="16" font-weight="400" fill="#202923" text-anchor="start">前期先用合成特徵，同步測分類介面。</text>
+<text id="text-21" data-card="card-de" x="44" y="1037" font-size="16" font-weight="400" fill="#202923" text-anchor="start">接 B/C 輸出後，跑共同五折與 review。</text>
+<text id="text-22" data-card="card-de" x="44" y="1082" font-size="16" font-weight="700" fill="#705a76" text-anchor="start">交付：classifier API</text>
+<text id="text-23" data-card="card-de" x="44" y="1112" font-size="16" font-weight="400" fill="#202923" text-anchor="start">classifier_summary.csv、各折預測</text>
+<text id="text-24"  x="20" y="1208" font-size="14" font-weight="700" fill="#59655d" text-anchor="start">03　A/F 匯整</text>
+<rect id="card-af" x="20" y="1230" width="360" height="202" rx="16" fill="#eaf1eb" stroke="#d7dfd8"/>
+<text id="text-25" data-card="card-af" x="44" y="1270" font-size="22" font-weight="700" fill="#40664c" text-anchor="start">A / F　匯整兩組實驗</text>
+<text id="text-26" data-card="card-af" x="44" y="1312" font-size="16" font-weight="400" fill="#202923" text-anchor="start">整合四種管線，核對五折數據。</text>
+<text id="text-27" data-card="card-af" x="44" y="1342" font-size="16" font-weight="400" fill="#202923" text-anchor="start">整理維度、參數量、準確率與時間。</text>
+<text id="text-28" data-card="card-af" x="44" y="1372" font-size="16" font-weight="400" fill="#202923" text-anchor="start">確認兩組成果後，鎖定程式與設定。</text>
+<text id="text-29" data-card="card-af" x="44" y="1404" font-size="16" font-weight="700" fill="#40664c" text-anchor="start">由 A/F 共同驗收。</text>
+<text id="text-30"  x="20" y="1480" font-size="14" font-weight="700" fill="#59655d" text-anchor="start">04　最終交付</text>
+<rect id="card-test" x="20" y="1500" width="360" height="145" rx="16" fill="#faf3e9" stroke="#d7dfd8"/>
+<text id="text-31" data-card="card-test" x="44" y="1540" font-size="22" font-weight="700" fill="#85603a" text-anchor="start">F　正式測試</text>
+<text id="text-32" data-card="card-test" x="44" y="1582" font-size="16" font-weight="400" fill="#202923" text-anchor="start">設定鎖定後，A 才交付正式測試集。</text>
+<text id="text-33" data-card="card-test" x="44" y="1613" font-size="16" font-weight="400" fill="#202923" text-anchor="start">全部訓練圖重新 fit，再評估測試圖。</text>
+<rect id="card-report" x="20" y="1695" width="360" height="145" rx="16" fill="#f3f3ef" stroke="#d7dfd8"/>
+<text id="text-34" data-card="card-report" x="44" y="1735" font-size="22" font-weight="700" fill="#202923" text-anchor="start">全員　簡報與書面報告</text>
+<text id="text-35" data-card="card-report" x="44" y="1777" font-size="16" font-weight="400" fill="#202923" text-anchor="start">B/C、D/E 撰寫方法與實驗結果。</text>
+<text id="text-36" data-card="card-report" x="44" y="1808" font-size="16" font-weight="400" fill="#202923" text-anchor="start">A/F 統一風格、名稱、設定與數字。</text>
+<text id="text-37"  x="20" y="1884" font-size="14" font-weight="400" fill="#59655d" text-anchor="start">正式測試集不進入五折交叉驗證。</text>
+</g></svg>
