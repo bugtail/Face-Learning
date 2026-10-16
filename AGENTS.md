@@ -1,41 +1,63 @@
-# D — Bayes Classifier
+# D — Gaussian Naive Bayes 分類器｜AI 協作背景知識
 
-## Project background
+## 專題背景與固定規格
 
-The goal is to compare PCA → Bayes, LDA → Bayes, PCA → MLP, and LDA → MLP in MATLAB using identical splits and evaluation rules. The public FaceLab website currently demonstrates one browser-side model trained in Python: PCA + Gaussian Naive Bayes. That baseline does not establish that the course's Bayes definition is Gaussian Naive Bayes or that the MATLAB implementation is complete.
+## 六人共用的固定規格
 
-The feature input is expected to have one sample per row (`Ztrain: N × q`), with labels aligned in `ytrain: N × 1`. GitHub stores code and review, MATLAB runs the formal experiments. Do not commit face images, official test data, credentials, private paths, or identifying filename lists.
+- 專題比較四條 MATLAB 管線：PCA→Gaussian Naive Bayes、PCA→MLP、Fisher LDA→Gaussian Naive Bayes、Fisher LDA→MLP。
+- 目前訓練資料是 200 張 640×640 RGB PNG，man/woman 各 100 張；每類 50 個檔名群組，每組 2 張。檔名第一段是此資料集的 class tag，第二段只當 fold group key，不宣稱是真實身分。
+- A 產生私人 train_dataset.mat：X 為 200×1024 double、y 為 200×1 categorical、sampleID/groupID 各 200 筆、另有 preprocessSpec。X 的每列是一張影像，欄為特徵。
+- 固定前處理：RGB 先轉 double 除以 255；每張 640×640 影像切成 32×32 個 20×20×3 區塊，對每個區塊全部 RGB 值取平均；按影像網格列優先展平成 1,024 維。各角色不得另做 resize、crop 或 scaling。
+- F 產生私人 fold_manifest.csv，欄位 sampleID、groupID、label、outerFold。每類的 50 組以 Twister seed 2026 分別打散，平均分到五折；每折 validation 是 40 張、每類 20 張，train 是 160 張、每類 80 張。兩張同組影像永遠在同一折。
+- 四條管線讀同一份 fold manifest。每折的 PCA/LDA 和分類器都只用該折 train fit；validation 僅 transform、predict 和計分。
+- PCA q = 中心化 Xtrain 的 MATLAB rank；採 rank 預設 tolerance max(size(A))*eps(norm(A))。二分類 LDA 輸出 K−1=1 維；Sw 使用 SVD Moore-Penrose 最小範數解，不加猜測的 ridge 常數。
+- Bayes 固定 fitcnb normal distribution、empirical prior。MLP 固定 fitcnet 一層 10-unit ReLU，Standardize=true、Lambda=0、IterationLimit=1000；每次 fit 前重設 Twister seed 2026。
+- 正類固定 woman；prediction scores 欄位依 model.ClassNames 找出。交叉驗證報告 balanced accuracy 及 fold AUC 的 mean±sample SD；AUC 先逐 fold 計算。五折結果不得稱正式 test 結果。
+- 影像、train_dataset.mat、原始檔名映射、fold manifest、sample-level predictions 和私人路徑不得上傳公開 GitHub 或網站。程式、schema、synthetic tests 和審核後的 aggregate results 才能公開。
+- 全員使用同一 MATLAB release；每次 run 記錄 version -release、ver、Git commit、data/spec version 和設定。簡報與書面報告用相同的方法名、設定、指標和數字。
 
-## Your role and ownership
+完整規格與操作圖解：https://face-learning-lab-heetah-20261015.divine-siren-9327.chatgpt.site/docs/PROJECT_SPECIFICATIONS.md
 
-Own a classifier interface that can consume either PCA or LDA features without duplicating feature preprocessing. Agree with the course specification and group before selecting the meaning of “Bayes,” the likelihood family, prior rule, parameter estimation, or any smoothing. Return predictions and score metadata in an unambiguous class order for F.
 
-## Model and output requirements
+## 角色責任
 
-“Bayes” alone does not determine a classifier. Identify the course-required conditional likelihood assumptions, class priors, parameter estimation, and prediction rule. MATLAB `fitcnb` is a Naive Bayes implementation; use it only if its documented options and actual release match the course's required method. Check toolbox availability with `version -release`, `ver`, and `which fitcnb -all`.
+對 PCA/LDA 特徵分別訓練 Gaussian Naive Bayes，回傳清楚的類別、分數和 fit/predict 記錄。
 
-Define and document fit/predict behavior. Prediction output should include labels, a continuous class score matrix, and `classNames` in the corresponding column order. The positive-class score used for ROC/AUC must be selected by matching the class name, not by assuming a column index. Do not call an uncalibrated score a probability unless that property is established. Handle unseen or malformed inputs explicitly.
+Gaussian Naive Bayes 以每個 class/feature 的 Gaussian 分布估計 likelihood，並假設給定 class 後各 feature conditionally independent。固定 normal/empirical，不在 validation 選分布或先驗。MATLAB scores 欄位順序以 model.ClassNames 為準。
 
-Fit classifier parameters only from the current fold's training features and labels. If a model option or prior is tuned, tune it only within the outer training data. Validation assesses the fitted model; the official test set remains locked until settings are fixed.
+## 手把手操作步驟
 
-## AI collaboration guidance
+1. 先和 E 用 synthetic Z 對齊 fit/predict input、label type、ClassNames 和 scores 欄位。
+2. 載入 A 的 MAT 與 F 的 CSV，驗證 sampleID 列順序；每一 fold 取得 Xtrain/ytrain 和 Xvalid/yvalid。
+3. 建 PCA→Bayes 線：用 B 的 fitPCA(Xtrain) fit reducer；transform train 和 validation；只用 Ztrain/ytrain fitcnb。
+4. 建 LDA→Bayes 線：用 C 的 fitLDA(Xtrain,ytrain) fit reducer；transform train 和 validation；只用 Ztrain/ytrain fitcnb。
+5. 固定 fitcnb 的 DistributionNames='normal'、Prior='empirical'；不加平滑、不調分布。外層 training 每類等量，empirical priors 會依該 fold 實際頻率估計。
+6. 對 validation 呼叫 predict。保存 yhat、scores、model.ClassNames；用 ClassNames 找 woman 分數欄，不能硬寫欄號。
+7. 每個 fold/兩條 Bayes pipeline 都記錄 fitSeconds、predictSeconds、class names、設定和錯誤檢查；sample-level OOF CSV 私下交 F。
+8. 與 E 合併 classifier_summary.csv；和 E 一起把 Bayes 假設、兩組結果、限制和 F 的指標放進簡報與報告。
 
-Give AI the course's exact “Bayes” wording, MATLAB release/toolbox details, expected feature shapes, and class names. First request a comparison of the course definition to the selected MATLAB implementation, including assumptions, priors, estimation rules, and score semantics. Ask it to list mismatches and questions for the instructor before generating code. Every smoothing value or numeric fallback needs a documented source; do not accept a guessed epsilon. Request synthetic tests for class order, score columns, class priors, and both PCA/LDA feature inputs. Verify behavior in the official [`fitcnb` documentation](https://www.mathworks.com/help/stats/fitcnb.html) or the course-approved implementation, run MATLAB tests, and inspect the staged diff. Never disclose face images or official test examples to an AI tool.
 
-## Work sequence
+## 和配對角色一起交付
 
-1. Obtain the course's exact Bayes definition before picking the implementation.
-2. Check the MATLAB release, toolbox, and implementation documentation.
-3. Agree with B, C, E, and F on input shape, labels, score columns, and class-name ordering.
-4. Implement fit and predict functions with explicit model assumptions and outputs.
-5. Test on synthetic data; verify class order and positive-score selection using names.
-6. Run only on training folds and produce validation predictions through F's shared fold manifest.
-7. Record MATLAB version, model options, test command, and unresolved assumptions.
-8. Commit only assigned classifier source and tests on `feature/d-bayes`; open a pull request to `main` and request review.
+D/E 用完全相同的 reducer outputs、outer fold、y、正類 woman 和 score 欄位。D 產 PCA→Bayes、LDA→Bayes；E 產 PCA→MLP、LDA→MLP。共同交 classifier_summary.csv 與四 pipeline OOF rows 給 F，並互相審閱假設、曲線和結果名稱。
 
-## Do not assume
+## 交付檔案與驗收
 
-- Do not equate every Bayes classifier with Naive Bayes.
-- Do not assume Gaussian likelihoods, equal priors, or built-in defaults match the assignment.
-- Do not report raw classifier scores as calibrated probabilities.
-- Do not select model settings by inspecting outer validation or official test results.
+matlab/fitBayes.m；matlab/predictBayes.m；synthetic score-order tests；private classifier_summary.csv 與兩條 pipeline 的 OOF predictions；報告中的 Bayes 假設與結果。
+
+完成條件：
+- 合成資料測試通過；尺寸、欄位、label order 和有限值檢查通過。
+- 每次 fit 都限定在當前 fold 的 train rows；validation 僅 transform、predict、計分。
+- 設定、版本、seed、資料契約與輸出欄位有紀錄。
+- 配對角色 review 後，方法與實際 F 結果已同時放入簡報和書面報告。
+- git diff --check 通過；公開 commit 沒有任何私有資料。
+
+## 給 AI 的背景提示
+
+我負責 D。依共同規格用 fitcnb DistributionNames=normal、Prior=empirical，建立 PCA/LDA 共用的 fit/predict wrapper。用 synthetic matrices 驗證 labels、scores、ClassNames、woman score 查找和 train-only fit。不要新增 smoothing 或 hyperparameter optimization。
+
+提供給 AI 的內容只含函式介面、synthetic arrays、非識別尺寸、MATLAB release/toolbox 和已遮蔽錯誤訊息。不要上傳臉部影像、X 特徵、sample-level predictions、原始檔名、私人路徑或憑證。AI 產生的 code 要先由組員 review，再在指定 MATLAB 環境執行。
+
+## 官方參考
+
+https://www.mathworks.com/help/stats/fitcnb.html
