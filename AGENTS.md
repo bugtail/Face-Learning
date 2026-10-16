@@ -33,17 +33,17 @@ Gaussian Naive Bayes 以每個 class/feature 的 Gaussian 分布估計 likelihoo
 4. 建 LDA→Bayes 線：用 C 的 fitLDA(Xtrain,ytrain) fit reducer；transform train 和 validation；只用 Ztrain/ytrain fitcnb。
 5. 固定 fitcnb 的 DistributionNames='normal'、Prior='empirical'；不加平滑、不調分布。外層 training 每類等量，empirical priors 會依該 fold 實際頻率估計。
 6. 對 validation 呼叫 predict。保存 yhat、scores、model.ClassNames；用 ClassNames 找 woman 分數欄，不能硬寫欄號。
-7. 每個 fold/兩條 Bayes pipeline 都記錄 fitSeconds、predictSeconds、class names、設定和錯誤檢查；sample-level OOF CSV 私下交 F。
+7. 每個 fold/兩條 Bayes pipeline 都記錄 fitSeconds、predictSeconds、class names、設定和錯誤檢查；sample-level oof_predictions.csv 逐筆列私下交 F；欄位依共同規格。
 8. 與 E 合併 classifier_summary.csv；和 E 一起把 Bayes 假設、兩組結果、限制和 F 的指標放進簡報與書面報告。
 
 
 ## 和配對角色一起交付
 
-D/E 用完全相同的 reducer outputs、outer fold、y、正類 woman 和 score 欄位。D 產 PCA→Bayes、LDA→Bayes；E 產 PCA→MLP、LDA→MLP。共同交 classifier_summary.csv 與四 pipeline OOF rows 給 F，並互相審閱假設、曲線和結果名稱。
+D/E 用完全相同的 reducer outputs、outer fold、y、正類 woman 和 score 欄位。D 產 PCA→Bayes、LDA→Bayes；E 產 PCA→MLP、LDA→MLP。共同交 classifier_summary.csv 與私有 oof_predictions.csv 的四條 pipeline rows 給 F，並互相審閱假設、曲線和結果名稱。
 
 ## 交付檔案與驗收
 
-matlab/fitBayes.m；matlab/predictBayes.m；synthetic score-order tests；private classifier_summary.csv 與兩條 pipeline 的 OOF predictions；報告中的 Bayes 假設與結果。
+matlab/fitBayes.m；matlab/predictBayes.m；synthetic score-order tests；private classifier_summary.csv、私有 oof_predictions.csv 的兩條 pipeline rows；簡報與書面報告中的 Bayes 假設與結果。
 
 完成條件：
 - 合成資料測試通過；尺寸、欄位、label order 和有限值檢查通過。

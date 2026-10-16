@@ -31,11 +31,11 @@
 
 ## 配對合作
 
-D/E 用完全相同的 reducer outputs、outer fold、y、正類 woman 和 score 欄位。D 產 PCA→Bayes、LDA→Bayes；E 產 PCA→MLP、LDA→MLP。共同交 classifier_summary.csv 與四 pipeline OOF rows 給 F，並互相審閱假設、曲線和結果名稱。
+D/E 用完全相同的 reducer outputs、outer fold、y、正類 woman 和 score 欄位。D 產 PCA→Bayes、LDA→Bayes；E 產 PCA→MLP、LDA→MLP。共同交 classifier_summary.csv 與私有 oof_predictions.csv 的四條 pipeline rows 給 F，並互相審閱假設、曲線和結果名稱。
 
 ## 本角色交付
 
-matlab/fitBayes.m；matlab/predictBayes.m；synthetic score-order tests；private classifier_summary.csv 與兩條 pipeline 的 OOF predictions；報告中的 Bayes 假設與結果。
+matlab/fitBayes.m；matlab/predictBayes.m；synthetic score-order tests；private classifier_summary.csv、私有 oof_predictions.csv 的兩條 pipeline rows；簡報與書面報告中的 Bayes 假設與結果。
 
 ## Git 操作
 
