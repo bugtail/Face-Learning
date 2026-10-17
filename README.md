@@ -28,6 +28,16 @@ A 負責製作私人訓練資料與正式測試資料；測試集到手後先核
 
 從私有 PNG 資料夾讀檔，核對 200 張、兩類各 100 張、640×640 RGB 與每群組兩張。依共同前處理產生 X/y/sampleID/groupID/preprocessSpec，私下交給 B–F。交付 prepareData.m、DATA_CONTRACT.md、合成測試和不含檔名的品質摘要。
 
+### 第一次製作 train_dataset.mat
+
+1. 從本分支的 `matlab/` 下載 `prepareData.m`、`poolFaceImage.m` 和 `testPoolFaceImage.m`，上傳到遠端 MATLAB 的同一個資料夾。不要把圖片或資料檔放進 GitHub。
+2. 在 MATLAB 開啟 `testPoolFaceImage.m`，按 **Run**。看到 `Synthetic pooling check passed` 才繼續。
+3. 開啟 `prepareData.m`，按 **Run**。第一個視窗選擇直接放著 200 張 PNG 的資料夾；第二個視窗選擇團隊核准的私人輸出資料夾，且不要選 GitHub repository。
+4. 在確認視窗選 **Yes, private folder**。成功後，三個檔案會出現在私人輸出資料夾：`train_dataset.mat`、`data_manifest.csv`、`data_quality_summary.csv`。前兩個包含臉部衍生資料或原始檔名，只能留在私人位置。
+5. 把 Command Window 最後的成功摘要回報給 F/B–E；不要把 `data_manifest.csv` 或 MAT 檔上傳到 repo、網站或 AI 工具。
+
+### 其餘協作流程
+
 1. 先讀本分支 AGENTS.md 的 AI 協作背景與操作步驟。
 2. 在 MATLAB 記錄 version -release、ver 與本角色函式的 which -all。
 3. 先跑 synthetic tests，再讀私人 train_dataset.mat 和 fold_manifest.csv。
@@ -49,7 +59,7 @@ matlab/prepareData.m；docs/DATA_CONTRACT.md；synthetic tests；private train_d
     git switch --track origin/feature/a-data-loader
     git status --short
     git diff --check
-    git add README.md AGENTS.md matlab/prepareData.m docs/DATA_CONTRACT.md tests/testPrepareData.m
+    git add README.md AGENTS.md matlab/prepareData.m matlab/poolFaceImage.m matlab/testPoolFaceImage.m docs/DATA_CONTRACT.md
     git commit -m "A: prepare shared dataset"
     git push -u origin feature/a-data-loader
 
