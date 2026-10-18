@@ -42,6 +42,38 @@ F 僅用 200 張訓練圖建立 folds；程式和設定鎖定、A 交付測試�
 
 matlab/createFoldManifest.m；matlab/runCV.m；synthetic fold/leakage tests；private fold_manifest.csv、oof_predictions.csv、fold_metrics.csv、summary_metrics.csv、run_config.json；核准後的報告圖表。
 
+## 第一階段：建立全組共用 folds
+
+真實 MAT 與三個輸出都放在核准的私人資料夾，不能放進本 repo。先在 MATLAB 將 Current Folder 切到 repo 根目錄，再執行：
+
+```matlab
+addpath('matlab');
+[manifest, counts, outputPaths, testResults] = ...
+    runFStageOne('D:\private\train_dataset.mat');
+```
+
+`runFStageOne` 會先跑只使用合成資料的單元測試，全部通過後才讀取私人
+MAT。若只想選檔，可執行 `prepareFHandoff()`；正式交付前仍須先確認合成測試通過。
+
+`prepareFHandoff` 會先驗證 v1.1 資料契約，再以 MATLAB
+`rng(2026,'twister')` 建立唯一切分，並寫出：
+
+- `fold_manifest.csv`：`sampleID,groupID,label,outerFold`，交給 A–E 共用。
+- `fold_counts.csv`：每折 validation/train 的 sample、class 與 group 數量。
+- `fold_config.json`：seed、MATLAB release/toolboxes、Git commit 與資料包 SHA-256；不記錄私人路徑。
+
+組員在第 `k` 折使用同一份 MAT 與 manifest：
+
+```matlab
+[trainData, validationData] = loadFoldData( ...
+    'D:\private\train_dataset.mat', ...
+    'D:\private\fold_manifest.csv', k);
+```
+
+`loadFoldData` 會先確認 MAT 與 CSV 的 sampleID、groupID、label 逐列一致；
+`trainData` 固定 160 列、`validationData` 固定 40 列。降維器與分類器只能用
+`trainData` fit，`validationData` 僅能 transform/predict。
+
 ## Git 操作
 
     git clone https://github.com/heetah/Face-Learning.git
