@@ -42,14 +42,14 @@ F 僅用 200 張訓練圖建立 folds；程式和設定鎖定、A 交付測試�
 
 matlab/createFoldManifest.m；matlab/runCV.m；synthetic fold/leakage tests；private fold_manifest.csv、oof_predictions.csv、fold_metrics.csv、summary_metrics.csv、run_config.json；核准後的報告圖表。
 
-## 第一階段：建立全組共用 folds
+## 第一階段：建立全組共用的五折分組
 
 真實 MAT 與三個輸出都放在核准的私人資料夾，不能放進本 repo。先在 MATLAB 將 Current Folder 切到 repo 根目錄，再執行：
 
 ```matlab
 addpath('matlab');
 [manifest, counts, outputPaths, testResults] = ...
-    runFStageOne('D:\private\train_dataset.mat');
+    runFStageOne('path/to/private/train_dataset.mat');
 ```
 
 `runFStageOne` 會先跑只使用合成資料的單元測試，全部通過後才讀取私人
