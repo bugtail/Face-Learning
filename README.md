@@ -42,6 +42,21 @@ F 僅用 200 張訓練圖建立 folds；程式和設定鎖定、A 交付測試�
 
 matlab/createFoldManifest.m；matlab/runCV.m；synthetic fold/leakage tests；private fold_manifest.csv、oof_predictions.csv、fold_metrics.csv、summary_metrics.csv、run_config.json；核准後的報告圖表。
 
+## 第一階段：共用五折分組
+
+- `runFStageOne.m`：測試並產生 `fold_manifest.csv`、`fold_counts.csv`、`fold_config.json`。
+- `loadFoldData.m`：讓組員依同一份 manifest 讀取 train/validation。
+
+```matlab
+addpath('matlab');
+runFStageOne('path/to/private/train_dataset.mat');
+
+% 讀取第 k 折
+[trainData, validationData] = loadFoldData(matPath, manifestPath, k);
+```
+
+真實 MAT 與輸出留在私人資料夾，不提交至 GitHub。
+
 ## Git 操作
 
     git clone https://github.com/heetah/Face-Learning.git
