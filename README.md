@@ -1,51 +1,34 @@
-# Face Learning Project
+# Face-Learning｜MATLAB 人臉影像分類專題
 
-This repository is the team's MATLAB implementation workspace for the face-image classification project. The goal is to compare four pipelines under the same data split and evaluation rules:
+本專題以同一份分組五折交叉驗證，比較四條管線：PCA ＋ Gaussian Naive Bayes、LDA ＋ Gaussian Naive Bayes、PCA ＋ MLP、LDA ＋ MLP。正式實驗在 MATLAB 執行。[FaceLab 網站](https://face-learning-lab-heetah-20261015.divine-siren-9327.chatgpt.site/)提供課程概念與操作示範。
 
-- PCA → Bayes
-- LDA → Bayes
-- PCA → MLP
-- LDA → MLP
+## 目前進度
 
-The public FaceLab site is a teaching demo. The course results come from the MATLAB experiments in this repository.
+| 角色 | 模組 | 進度與入口 |
+| --- | --- | --- |
+| A | 資料整理 | 已進入 `main`。[檢查訓練影像](matlab/inspectTrainingData.m)並用 [`prepareData`](matlab/prepareData.m) 將 200 張訓練圖轉為私有的 `train_dataset.mat`，特徵矩陣為 200 × 1,024。 |
+| B | PCA | 已進入 `main`。[`fitPCA`](matlab/fitPCA.m) 與 [`transformPCA`](matlab/transformPCA.m) 可在各折訓練資料上擬合與投影，保留維度由中心化矩陣的數值秩決定。 |
+| C | Fisher LDA | 已進入 `main`。[`fitLDA`](matlab/fitLDA.m) 與 [`transformLDA`](matlab/transformLDA.m) 將二分類資料投影到一維。 |
+| D | Gaussian Naive Bayes | 已進入 `main`。[`fitBayes`](matlab/fitBayes.m)、[`predictBayes`](matlab/predictBayes.m) 和[合成測試](tests/testBayes.m)已納入。輸出標籤、類別後驗機率及 fit／predict 計時。 |
+| E | MLP | 訓練、預測與合成測試已交付到 [`feature/e-mlp`](https://github.com/heetah/Face-Learning/tree/feature/e-mlp)，整合到 `main` 待完成。 |
+| F | 共用五折與評估 | 建立與載入 folds 已進入 `main`。[`runFStageOne`](matlab/runFStageOne.m) 產生共用清單，[`loadFoldData`](matlab/loadFoldData.m) 載入指定折的 160 筆訓練與 40 筆驗證資料。同組影像會放在同一折。 |
 
-## Current implementation
+四條管線的端到端評估與結果彙整待完成。獨立的 100 張正式測試圖保留到程式與設定定稿後使用。
 
-| Stage | MATLAB entry points | Output |
-|---|---|---|
-| A · Prepare data | [`inspectTrainingData`](matlab/inspectTrainingData.m), [`prepareData`](matlab/prepareData.m) | Checks the 200 training PNGs and creates a private `train_dataset.mat` with `X` (200 × 1,024), `y`, `sampleID`, `groupID`, and `preprocessSpec`. |
-| F · Create and read folds | [`runFStageOne`](matlab/runFStageOne.m), [`loadFoldData`](matlab/loadFoldData.m) | Creates `fold_manifest.csv`, `fold_counts.csv`, and `fold_config.json`. Loads 160 training rows and 40 validation rows for a selected fold. The two images in a filename group stay in the same fold. |
-| B · PCA | [`fitPCA`](matlab/fitPCA.m), [`transformPCA`](matlab/transformPCA.m) | Learns projection directions from the training rows. The retained dimension is the numerical rank of the centered training matrix. |
-| C · Fisher LDA | [`fitLDA`](matlab/fitLDA.m), [`transformLDA`](matlab/transformLDA.m) | Uses the training rows and labels to learn a projection to one feature. |
+## 快速開始
 
-Bayes (D), MLP (E), and the end-to-end evaluation of all four pipelines are pending. F's current entry point prepares the folds. The independent 100-image course test set is reserved for final evaluation after the methods and settings are fixed.
+### 1. 下載 `main`
 
-See the [data contract](docs/DATA_CONTRACT.md), [project specifications](docs/PROJECT_SPECIFICATIONS.md), and [team working rules](docs/TEAM_WORKING_RULES.md) for the shared interface and evaluation protocol.
+```bash
+git clone --branch main https://github.com/heetah/Face-Learning.git
+cd Face-Learning
+```
 
-## Start here
+在 MATLAB 把 **Current Folder** 設成 `Face-Learning` 根目錄。GitHub 的整合測試使用 **MATLAB R2025b**。執行 Bayes 測試或訓練時，另需 **Statistics and Machine Learning Toolbox**。
 
-1. Read the shared [AGENTS.md](AGENTS.md), then follow its link to your role guide.
-2. Read the [team working rules](docs/TEAM_WORKING_RULES.md) and [AI collaboration guide](docs/AI_COLLABORATION_GUIDE.md).
-3. Keep images, MAT packages, source filename maps, fold files, private paths, and credentials in approved private locations outside this repository.
-4. Test with synthetic matrices first. For each fold, fit PCA or LDA on the training rows and use the fitted model to transform both the training and validation rows. Use the same folds for all four pipelines.
-5. Commit only your assigned files on your task branch and open a pull request to your assigned team branch for review. See the [Git workflow](docs/TEAM_WORKING_RULES.md#git-workflow) for integration into `main`.
+### 2. 跑合成測試
 
-## Branches
-
-| Member | Branch | Focus |
-|---|---|---|
-| A | `feature/a-data-loader` | Dataset checks and shared input contract |
-| B | `feature/b-pca` | PCA fit/transform |
-| C | `feature/c-lda` | Fisher LDA fit/transform |
-| D | `feature/d-bayes` | Bayes classifier |
-| E | `feature/e-mlp` | MLP classifier |
-| F | `feature/f-cv-runner` | Fold manifest, integration, and evaluation |
-
-Role guides live in [docs/roles](docs/roles). The root [AGENTS.md](AGENTS.md) is shared across branches.
-
-## Run the synthetic checks in MATLAB
-
-Set MATLAB's **Current Folder** to the repository root. In a remote MATLAB session, keep the `matlab/`, `matlab/tests/`, and `tests/` directory structure when transferring the code.
+以下命令可以直接貼到 MATLAB Command Window。合成測試不需要下載課程影像或準備私有 MAT 檔。
 
 ```matlab
 addpath(fullfile(pwd, 'matlab'))
@@ -54,25 +37,44 @@ assertSuccess(runtests('tests/testPCA.m'))
 assertSuccess(runtests('tests/testFoldManifest.m'))
 run('matlab/tests/test_LDA_math.m')
 run('matlab/tests/test_LDA_synthetic.m')
+assertSuccess(runtests('tests/testFoldReducerIntegration.m'))
 ```
 
-## Prepare the shared training folds
+已安裝 Statistics and Machine Learning Toolbox 時，可另外測試 Bayes：
 
-1. **A** opens `matlab/prepareData.m` in MATLAB and clicks **Run**. Select the folder containing the 200 PNGs, then select a private output folder. Share `train_dataset.mat` with the team through the approved private location. Keep `data_manifest.csv`, which contains the source filenames, in A's private storage.
-2. **F** runs `runFStageOne(matPath)` with the path to that private MAT file. It runs the synthetic fold tests and saves the three fold files alongside the MAT file. Use the same `fold_manifest.csv` for every pipeline.
-3. **B–E** use `[trainData, validationData] = loadFoldData(matPath, manifestPath, fold)` for each fold from 1 to 5. Fit PCA with `trainData.X` or LDA with `trainData.X` and `trainData.y`. Apply the returned model to `trainData.X` and `validationData.X` separately using the matching `transform` function.
-
-## Git quick start
-
-```powershell
-git clone https://github.com/heetah/Face-Learning.git
-cd Face-Learning
-git switch --track origin/feature/a-data-loader
+```matlab
+run('tests/testBayes.m')
 ```
 
-The last command is an example for member A. Replace it with your assigned branch from the table above; `--track` creates a local branch that follows the existing GitHub branch. The A–F detail pages on the website give each role its exact command.
+### 3. 用團隊私有資料準備共用 folds
 
-For later sessions, switch to your assigned branch and run `git pull --ff-only` before editing. Before sharing work, inspect `git status --short` and `git diff --check`, stage only named files, commit, then run `git push` to update its upstream branch. Do not force-push shared work.
+1. **A** 在 MATLAB 執行 `prepareData`，依提示選取直接包含 200 張 PNG 的訓練目錄及團隊核准的私有輸出位置，再透過私有管道交付 `train_dataset.mat`。
+2. **F** 在 MATLAB 執行下列命令，把路徑換成收到的 MAT 檔位置。入口會先跑合成測試，再在 MAT 檔所在目錄建立 `fold_manifest.csv`、`fold_counts.csv` 和 `fold_config.json`。
 
-The website's A–F pages include step-by-step MATLAB and Git commands: <https://face-learning-lab-heetah-20261015.divine-siren-9327.chatgpt.site/#team-workflow>.
+   ```matlab
+   matPath = 'path/to/train_dataset.mat';
+   [~, ~, outputPaths] = runFStageOne(matPath);
+   [trainData, validationData] = loadFoldData(matPath, outputPaths.manifest, 1);
+   ```
 
+3. **B–E** 共用 F 提供的清單，依序載入第 1 到第 5 折。使用 `fitPCA(trainData.X, trainData.y)` 或 `fitLDA(trainData.X, trainData.y)`，再用同一個 reducer 分別轉換訓練與驗證資料。分類器只讀取該折訓練資料來擬合，驗證資料用於預測和計分。
+
+影像、MAT 資料、樣本對照表、fold 清單與逐筆預測都存放在團隊核准的私有位置。
+
+## 團隊開發
+
+先讀共用 [`AGENTS.md`](AGENTS.md)，依角色找到分支名稱和工作指引。從對應的團隊角色分支建立工作分支，完成後以該角色分支為 PR 目標。以 B 為例，若 `origin` 是自己的 fork，可在該 clone 裡執行：
+
+```bash
+git remote add upstream https://github.com/heetah/Face-Learning.git
+git fetch upstream
+git switch -c work/pca upstream/feature/b-pca
+git push -u origin work/pca
+```
+
+已設定 `upstream` 時，從 `git fetch upstream` 開始。送出 PR 前確認 **Files changed** 只有本次交付的檔案。角色成果合回 `main` 時，維護者從最新 `main` 建立 `integration/*`，帶入已審查的 `matlab/` 和 `tests/` 檔案。文件、素材與儲存庫設定使用專用 PR。
+
+- [專題規格](docs/PROJECT_SPECIFICATIONS.md)
+- [資料契約](docs/DATA_CONTRACT.md)
+- [團隊工作規則](docs/TEAM_WORKING_RULES.md)
+- [AI 協作指引](docs/AI_COLLABORATION_GUIDE.md)
