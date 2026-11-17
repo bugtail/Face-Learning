@@ -28,7 +28,7 @@ See the [data contract](docs/DATA_CONTRACT.md), [project specifications](docs/PR
 2. Read the [team working rules](docs/TEAM_WORKING_RULES.md) and [AI collaboration guide](docs/AI_COLLABORATION_GUIDE.md).
 3. Keep images, MAT packages, source filename maps, fold files, private paths, and credentials in approved private locations outside this repository.
 4. Test with synthetic matrices first. For each fold, fit PCA or LDA on the training rows and use the fitted model to transform both the training and validation rows. Use the same folds for all four pipelines.
-5. Commit only your assigned files on your own branch and open a pull request to `main` for review.
+5. Commit only your assigned files on your task branch and open a pull request to your assigned team branch for review. See the [Git workflow](docs/TEAM_WORKING_RULES.md#git-workflow) for integration into `main`.
 
 ## Branches
 
