@@ -46,15 +46,25 @@ test('excludes the maintainer from the member policy', () => {
   assert.deepEqual(audit({ ...pr, author: { login: 'heetah' } }), { skipped: true });
 });
 
+test('rejects direct merges of a role branch into main', () => {
+  const candidate = { ...pr, author: { login: 'heetah' }, baseRefName: 'main', headRefName: 'feature/b-pca' };
+  assert.throws(() => audit(candidate), /reviewed module files/);
+});
+
 test('rejects a changed PR head', () => {
   assert.throws(() => audit({ ...pr, headRefOid: role }, gitFixture()), /head changed/);
 });
 
 test('rejects changes to other roles, workflow files and empty payloads', () => {
-  for (const path of ['matlab/fitLDA.m', '.github/workflows/audit-role-pr.yml', 'assets/example.png']) {
+  for (const path of ['matlab/fitLDA.m', 'docs/roles/c.md', '.github/workflows/audit-role-pr.yml', 'assets/example.png']) {
     assert.throws(() => audit(pr, gitFixture({ paths: ['matlab/fitPCA.m', path] })), /outside/);
   }
   assert.throws(() => audit(pr, gitFixture({ paths: [] })), /no role changes/);
+});
+
+test('allows a member to update their own role instructions', () => {
+  const paths = ['docs/roles/b.md'];
+  assert.deepEqual(audit(pr, gitFixture({ paths })).paths, paths);
 });
 
 test('accepts the actual Bayes and MLP author/branch/path mappings', () => {
@@ -74,12 +84,17 @@ const integration = {
 };
 
 for (const [base, direction] of [['main', 'role-to-main'], ['feature/b-pca', 'main-to-role']]) {
-  test(`${direction} admits only the three integration folders`, () => {
+  test(`${direction} enforces the destination-specific integration folders`, () => {
     const candidate = { ...integration, baseRefName: base };
-    const paths = ['docs/roles/b.md', 'matlab/private/pool.m', 'tests/testPCA.m'];
+    const paths = ['matlab/private/pool.m', 'tests/testPCA.m'];
+    if (direction === 'main-to-role') paths.push('docs/roles/b.md');
     assert.equal(audit(candidate, gitFixture({ paths, base })).direction, direction);
     for (const path of ['README.md', 'AGENTS.md', '.github/workflows/check.yml', 'assets/map.svg', 'docs-old/old.md', 'docs']) {
       assert.throws(() => audit(candidate, gitFixture({ paths: [...paths, path], base })),
+        /outside the integration folders/);
+    }
+    if (direction === 'role-to-main') {
+      assert.throws(() => audit(candidate, gitFixture({ paths: [...paths, 'docs/roles/b.md'], base })),
         /outside the integration folders/);
     }
     assert.throws(() => audit(candidate, gitFixture({ base, staleHead: true })),

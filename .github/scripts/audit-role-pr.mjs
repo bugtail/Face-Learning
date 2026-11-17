@@ -6,22 +6,22 @@ import { pathToFileURL } from 'node:url';
 const scopes = {
   liupiyan: {
     base: 'feature/b-pca',
-    files: ['matlab/fitPCA.m', 'matlab/transformPCA.m', 'tests/testPCA.m'],
+    files: ['matlab/fitPCA.m', 'matlab/transformPCA.m', 'tests/testPCA.m', 'docs/roles/b.md'],
   },
   bugtail: {
     base: 'feature/c-lda',
     files: [
       'matlab/fitLDA.m', 'matlab/transformLDA.m',
-      'matlab/tests/test_LDA_math.m', 'matlab/tests/test_LDA_synthetic.m',
+      'matlab/tests/test_LDA_math.m', 'matlab/tests/test_LDA_synthetic.m', 'docs/roles/c.md',
     ],
   },
   giakolan: {
     base: 'feature/d-bayes',
-    files: ['matlab/fitBayes.m', 'matlab/predictBayes.m', 'tests/testBayes.m'],
+    files: ['matlab/fitBayes.m', 'matlab/predictBayes.m', 'tests/testBayes.m', 'docs/roles/d.md'],
   },
   uhumipaa: {
     base: 'feature/e-mlp',
-    files: ['matlab/MLPtest.m', 'matlab/fitMLP.m', 'matlab/predictMLP.m'],
+    files: ['matlab/MLPtest.m', 'matlab/fitMLP.m', 'matlab/predictMLP.m', 'docs/roles/e.md'],
   },
   'cloud-sky-0128': {
     base: 'feature/f-cv-runner',
@@ -29,12 +29,13 @@ const scopes = {
       'matlab/createFoldManifest.m', 'matlab/loadFoldData.m',
       'matlab/prepareFHandoff.m', 'matlab/runFStageOne.m',
       'matlab/sha256File.m', 'matlab/validateFoldManifest.m',
-      'matlab/validateTrainDataset.m', 'tests/testFoldManifest.m',
+      'matlab/validateTrainDataset.m', 'tests/testFoldManifest.m', 'docs/roles/f.md',
     ],
   },
 };
 const roleBranches = new Set(['feature/a-data-loader', ...Object.values(scopes).map((scope) => scope.base)]);
-const integrationRoots = ['docs/', 'matlab/', 'tests/'];
+const moduleRoots = ['matlab/', 'tests/'];
+const roleUpdateRoots = ['docs/', ...moduleRoots];
 
 function getRule(login) {
   const key = login?.toLowerCase();
@@ -58,10 +59,10 @@ function changedPaths(git, base, head) {
     .filter(Boolean);
 }
 
-function auditIntegrationPaths(paths) {
-  const outside = paths.filter((path) => !integrationRoots.some((root) => path.startsWith(root)));
+function auditIntegrationPaths(paths, roots) {
+  const outside = paths.filter((path) => !roots.some((root) => path.startsWith(root)));
   if (outside.length) {
-    throw new Error(`Paths outside the integration folders (docs/, matlab/, tests/): ${JSON.stringify(outside)}`);
+    throw new Error(`Paths outside the integration folders (${roots.join(', ')}): ${JSON.stringify(outside)}`);
   }
 }
 
@@ -83,13 +84,16 @@ function auditIntegration(pr, git) {
   }
   const paths = changedPaths(git, base, head);
   if (paths.length === 0) throw new Error('The PR has no file changes to integrate.');
-  auditIntegrationPaths(paths);
+  auditIntegrationPaths(paths, direction === 'role-to-main' ? moduleRoots : roleUpdateRoots);
   return { direction, base, head, paths };
 }
 
 export function audit(pr, git) {
   if (pr.state !== 'OPEN') throw new Error('The pull request is not open.');
   if (pr.author?.login?.toLowerCase() === 'heetah') {
+    if (pr.baseRefName === 'main' && roleBranches.has(pr.headRefName)) {
+      throw new Error('Import the reviewed module files using an integration branch based on main.');
+    }
     return usesIntegrationBranch(pr) ? auditIntegration(pr, git) : { skipped: true };
   }
   const rule = getRule(pr.author?.login);
@@ -105,7 +109,7 @@ export function audit(pr, git) {
 
   const paths = changedPaths(git, role, head);
   if (paths.length === 0) throw new Error('The PR has no role changes to audit.');
-  auditIntegrationPaths(paths);
+  auditIntegrationPaths(paths, roleUpdateRoots);
   const unexpected = paths.filter((path) => !rule.files.includes(path));
   if (unexpected.length) {
     throw new Error(`Paths outside the role allowlist: ${JSON.stringify(unexpected)}`);
