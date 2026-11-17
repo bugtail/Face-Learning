@@ -24,7 +24,7 @@ See the [data contract](docs/DATA_CONTRACT.md), [project specifications](docs/PR
 
 ## Start here
 
-1. Read the `AGENTS.md` on your assigned branch for role-specific context and AI-collaboration guidance.
+1. Read the shared [AGENTS.md](AGENTS.md), then follow its link to your role guide.
 2. Read the [team working rules](docs/TEAM_WORKING_RULES.md) and [AI collaboration guide](docs/AI_COLLABORATION_GUIDE.md).
 3. Keep images, MAT packages, source filename maps, fold files, private paths, and credentials in approved private locations outside this repository.
 4. Test with synthetic matrices first. For each fold, fit PCA or LDA on the training rows and use the fitted model to transform both the training and validation rows. Use the same folds for all four pipelines.
@@ -41,7 +41,7 @@ See the [data contract](docs/DATA_CONTRACT.md), [project specifications](docs/PR
 | E | `feature/e-mlp` | MLP classifier |
 | F | `feature/f-cv-runner` | Fold manifest, integration, and evaluation |
 
-Each role branch has its own top-level `AGENTS.md`. Branch names are part of the shared workflow; coordinate before renaming them.
+Role guides live in [docs/roles](docs/roles). The root [AGENTS.md](AGENTS.md) is shared across branches.
 
 ## Run the synthetic checks in MATLAB
 

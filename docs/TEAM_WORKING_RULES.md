@@ -8,7 +8,7 @@ The selected implementation details are in [PROJECT_SPECIFICATIONS.md](PROJECT_S
 
 ## Before coding
 
-1. Read the project specifications, data contract, common rules, and your branch's README.md and AGENTS.md.
+1. Read the project specifications, data contract, common rules, and the [shared AGENTS.md](../AGENTS.md). Follow its link to your role guide.
 2. Get train_dataset.mat from the approved private team location. F creates fold_manifest.csv from these training samples only.
 3. A keeps the official test_dataset.mat in a separate private location. Do not inspect or use its labels while implementing, cross-validating, comparing, or changing methods. F receives it only after the code and settings are frozen.
 4. Check the MATLAB release and required functions with version -release, ver, and which functionName -all.
@@ -39,7 +39,9 @@ F supplies separate five-fold and final-test result tables. Report course-requir
 
 Push your task branch and open a PR to your assigned team branch. The role audit checks authorship, the target branch, and assigned file paths. Request review and record the MATLAB release, tested commit, and test result.
 
-When role changes are ready to integrate, the maintainer starts an `integration/*` branch from the current `main`, brings in the reviewed changes, and opens a PR to `main`. If `main` advances, update the integration branch before merging. For MATLAB or test changes, check the **MATLAB integration** workflow, which exercises the shared fold handoff to PCA and LDA with synthetic data. Keep private data out of commits and leave shared branch history intact.
+When role changes are ready to integrate, the maintainer starts an `integration/*` branch from the current `main`, copies the reviewed files under `matlab/` and `tests/`, and opens a PR to `main`. If `main` advances, update the integration branch before merging. For MATLAB or test changes, check the **MATLAB integration** workflow, which exercises the shared fold handoff to PCA and LDA with synthetic data. Keep private data out of commits and leave shared branch history intact.
+
+For a selective integration, run `git fetch origin`, then `git switch -c integration/<task> origin/main`. Copy individual paths with `git restore --source origin/<role-branch> -- <file1> <file2>` and stage those paths explicitly. After committing, check `git diff --name-status origin/main...HEAD` against the reviewed file list. Submit shared documentation, repository configuration, or assets in a dedicated PR. Edit role-specific instructions in `docs/roles/`.
 
 ## AI use
 
