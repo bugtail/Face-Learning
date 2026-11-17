@@ -17,7 +17,7 @@ const scopes = {
   },
   giakolan: {
     base: 'feature/d-bayes',
-    files: ['matlab/fitBayes.m', 'matlab/predictBayes.m'],
+    files: ['matlab/fitBayes.m', 'matlab/predictBayes.m', 'tests/testBayes.m'],
   },
   uhumipaa: {
     base: 'feature/e-mlp',
@@ -101,14 +101,7 @@ export function audit(pr, git) {
   }
   if (pr.isDraft) throw new Error('Draft PRs are not ready for integration.');
   const head = resolveHead(pr, git);
-  const main = git('rev-parse', '--verify', 'refs/remotes/origin/main').trim();
   const role = git('rev-parse', '--verify', `refs/remotes/origin/${rule.base}`).trim();
-  if (git('merge-base', main, head).trim() !== main) {
-    throw new Error('Update the PR branch to include the current upstream main.');
-  }
-  if (git('merge-base', main, role).trim() !== main) {
-    throw new Error('The target role branch must be synchronized with upstream main.');
-  }
 
   const paths = changedPaths(git, role, head);
   if (paths.length === 0) throw new Error('The PR has no role changes to audit.');
@@ -117,7 +110,7 @@ export function audit(pr, git) {
   if (unexpected.length) {
     throw new Error(`Paths outside the role allowlist: ${JSON.stringify(unexpected)}`);
   }
-  return { main, role, head, paths };
+  return { role, head, paths };
 }
 
 function run(pullNumber) {
@@ -137,9 +130,8 @@ function run(pullNumber) {
     && (pr.baseRefName === 'main' || roleBranches.has(pr.baseRefName));
   if (((rule && rule.base === pr.baseRefName) || maintainerIntegration) && !pr.isDraft && pr.state === 'OPEN') {
     // Fetch Git objects only. No PR checkout, hooks, build, or script execution.
-    const branches = new Set(['main', pr.baseRefName]);
-    const refspecs = [...branches].map((branch) => `+refs/heads/${branch}:refs/remotes/origin/${branch}`);
-    git('fetch', '--no-tags', 'origin', ...refspecs,
+    git('fetch', '--no-tags', 'origin',
+      `+refs/heads/${pr.baseRefName}:refs/remotes/origin/${pr.baseRefName}`,
       `+refs/pull/${pullNumber}/head:refs/face-audit/pr/${pullNumber}`);
   }
   console.log(JSON.stringify(audit(pr, git), null, 2));

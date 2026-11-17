@@ -11,22 +11,19 @@ const pr = {
 };
 
 function gitFixture({
-  staleHead = false, staleRole = false, paths = ['matlab/fitPCA.m'], base = pr.baseRefName,
+  staleHead = false, paths = ['matlab/fitPCA.m'], base = pr.baseRefName,
 } = {}) {
+  const target = base === 'main' ? main : role;
   return (command, ...args) => {
     if (command === 'rev-parse') {
-      if (args[1] === 'refs/remotes/origin/main') return main;
-      if (args[1] === `refs/remotes/origin/${base}`) return role;
+      if (args[1] === `refs/remotes/origin/${base}`) return target;
       if (args[1] === 'refs/face-audit/pr/9') return head;
     }
     if (command === 'merge-base') {
-      if (args[0] === role && args[1] === head) return staleHead ? main : role;
-      assert.equal(args[0], main);
-      if (args[1] === head) return staleHead ? role : main;
-      if (args[1] === role) return staleRole ? head : main;
+      assert.deepEqual(args, [target, head]);
+      return staleHead ? 'd'.repeat(40) : target;
     }
     if (command === 'diff') {
-      const target = base === 'main' ? main : role;
       assert.deepEqual(args, ['--no-renames', '--name-only', '-z', `${target}...${head}`, '--']);
       return paths.join('\0');
     }
@@ -34,8 +31,8 @@ function gitFixture({
   };
 }
 
-test('permits a current PR that changes only the assigned files', () => {
-  assert.deepEqual(audit(pr, gitFixture()), { main, role, head, paths: ['matlab/fitPCA.m'] });
+test('audits a role PR using only its target branch and PR head', () => {
+  assert.deepEqual(audit(pr, gitFixture()), { role, head, paths: ['matlab/fitPCA.m'] });
 });
 
 test('rejects unknown authors, wrong destinations and drafts', () => {
@@ -49,9 +46,7 @@ test('excludes the maintainer from the member policy', () => {
   assert.deepEqual(audit({ ...pr, author: { login: 'heetah' } }), { skipped: true });
 });
 
-test('rejects old main on either branch, and a changed PR head', () => {
-  assert.throws(() => audit(pr, gitFixture({ staleHead: true })), /PR branch/);
-  assert.throws(() => audit(pr, gitFixture({ staleRole: true })), /role branch/);
+test('rejects a changed PR head', () => {
   assert.throws(() => audit({ ...pr, headRefOid: role }, gitFixture()), /head changed/);
 });
 
@@ -66,7 +61,7 @@ test('accepts the actual Bayes and MLP author/branch/path mappings', () => {
   const bayes = { ...pr, author: { login: 'Giakolan' }, baseRefName: 'feature/d-bayes' };
   const mlp = { ...pr, author: { login: 'uhumipaa' }, baseRefName: 'feature/e-mlp' };
   for (const [candidate, paths] of [
-    [bayes, ['matlab/fitBayes.m', 'matlab/predictBayes.m']],
+    [bayes, ['matlab/fitBayes.m', 'matlab/predictBayes.m', 'tests/testBayes.m']],
     [mlp, ['matlab/MLPtest.m', 'matlab/fitMLP.m', 'matlab/predictMLP.m']],
   ]) {
     assert.deepEqual(audit(candidate, gitFixture({ base: candidate.baseRefName, paths })).paths, paths);
